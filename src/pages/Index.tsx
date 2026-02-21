@@ -31,6 +31,16 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background font-sans">
+      {/* ── FLOATING WHATSAPP ── */}
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-whatsapp text-whatsapp-foreground flex items-center justify-center shadow-2xl hover:scale-110 hover:bg-whatsapp-hover transition-all"
+        aria-label="Falar pelo WhatsApp"
+      >
+        <WhatsAppIcon className="w-8 h-8" />
+      </a>
       {/* ── HERO ── */}
       <header className="relative min-h-[88vh] flex flex-col items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
@@ -46,15 +56,11 @@ const Index = () => {
           />
 
           <p className="text-lg md:text-xl text-gold font-medium mb-4 leading-relaxed">
-            Online como porta de entrada.
-            <br />
-            Presença e comunhão no presencial.
+            Online como porta de entrada. Presença e comunhão no presencial.
           </p>
 
           <p className="text-base text-primary-foreground/80 max-w-md leading-relaxed">
-            A internet aproxima, mas não substitui o encontro presencial.
-            <br />
-            Estamos felizes por você estar aqui — escolha seu próximo passo.
+            A internet aproxima, mas não substitui o encontro presencial. Estamos felizes por você estar aqui — escolha seu próximo passo.
           </p>
 
           <button
@@ -152,7 +158,7 @@ const Index = () => {
               Falar com a Recepção
             </a>
             <p className="text-muted-foreground text-xs mt-2 ml-1">
-              Mensagem automática · Respondemos em horário comercial
+              Mensagem automática · Respondemos de segunda a domingo, todos os horários
             </p>
           </div>
         </div>
@@ -173,7 +179,7 @@ const Index = () => {
             Vídeos curtos para você conhecer a IEBAM no seu tempo — sem pressa, sem pressão.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <VideoCard
               episode={1}
               title="Comece por aqui"
@@ -189,16 +195,6 @@ const Index = () => {
               episode={3}
               title="Como é um culto"
               duration="3 min"
-            />
-            <VideoCard
-              episode={4}
-              title="Comunidade & família"
-              duration="6 min"
-            />
-            <VideoCard
-              episode={5}
-              title="Perguntas frequentes"
-              duration="4 min"
             />
           </div>
         </div>
@@ -282,8 +278,7 @@ const Index = () => {
             </h2>
             <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
               Nossa equipe de recepção está pronta para te ajudar.
-              <br />
-              Respondemos em horário comercial (seg–sex, 9h–17h).
+              Respondemos todos os dias, de segunda a domingo, em todos os horários.
             </p>
             <a
               href={WHATSAPP_URL}
