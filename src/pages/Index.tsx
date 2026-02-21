@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import churchHero from "@/assets/church-hero.jpg";
+import logoIEBAM from "@/assets/logo-IEBAM-horizontal.png";
 import {
   MapPin,
   MessageCircle,
@@ -38,11 +39,11 @@ const Index = () => {
         </div>
 
         <div className="relative z-10 text-center px-6 max-w-2xl mx-auto flex flex-col items-center">
-          <CrossSymbol />
-
-          <h1 className="text-6xl md:text-8xl font-bold tracking-widest text-primary-foreground mb-6 font-serif">
-            IEBAM
-          </h1>
+          <img
+            src={logoIEBAM}
+            alt="IEBAM - Igreja Evangélica Batista no Alto da Mooca"
+            className="w-64 md:w-80 mb-6 drop-shadow-lg"
+          />
 
           <p className="text-lg md:text-xl text-gold font-medium mb-4 leading-relaxed">
             Online como porta de entrada.
@@ -327,19 +328,7 @@ const Index = () => {
 
 /* ── Sub-components ── */
 
-function CrossSymbol() {
-  return (
-    <div className="mb-6 flex flex-col items-center gap-1">
-      <div className="w-px h-8 bg-gold/80" />
-      <div className="flex items-center gap-1">
-        <div className="w-4 h-px bg-gold/80" />
-        <div className="w-2 h-2 rounded-full bg-gold" />
-        <div className="w-4 h-px bg-gold/80" />
-      </div>
-      <div className="w-px h-4 bg-gold/80" />
-    </div>
-  );
-}
+
 
 function JourneyButton({
   onClick,
