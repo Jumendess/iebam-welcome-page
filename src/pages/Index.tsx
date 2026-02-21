@@ -1,14 +1,28 @@
 import { useRef } from "react";
 import churchHero from "@/assets/church-hero.jpg";
-import { MapPin, Clock, MessageCircle, ChevronDown, BookOpen, Users, Heart, Play } from "lucide-react";
+import {
+  MapPin,
+  MessageCircle,
+  ChevronDown,
+  BookOpen,
+  Users,
+  Heart,
+  Play,
+  CheckCircle2,
+  ArrowRight,
+  Clock,
+  ExternalLink,
+} from "lucide-react";
 
-const WHATSAPP_URL = "https://wa.me/5592999999999";
-const MAPS_URL = "https://maps.google.com/?q=Rua+Exemplo+123+Bairro+Exemplo";
+const WHATSAPP_URL =
+  "https://wa.me/5592999999999?text=Oi!%20Sou%20novo(a)%20e%20queria%20visitar%20domingo.%20Como%20funciona%3F";
+const SITE_OFICIAL = "https://www.iebam.org.br";
 
 const Index = () => {
   const visitRef = useRef<HTMLDivElement>(null);
   const knowRef = useRef<HTMLDivElement>(null);
   const walkRef = useRef<HTMLDivElement>(null);
+  const expectRef = useRef<HTMLDivElement>(null);
 
   const scrollTo = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -17,206 +31,173 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background font-sans">
       {/* ── HERO ── */}
-      <header className="relative min-h-[92vh] flex flex-col items-center justify-center overflow-hidden">
-        {/* Background image with overlay */}
+      <header className="relative min-h-[88vh] flex flex-col items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img
-            src={churchHero}
-            alt="Interior da IEBAM"
-            className="w-full h-full object-cover"
-          />
+          <img src={churchHero} alt="IEBAM" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/65 to-background" />
         </div>
 
-        {/* Content */}
         <div className="relative z-10 text-center px-6 max-w-2xl mx-auto flex flex-col items-center">
-          {/* Logo cross symbol */}
-          <div className="mb-6 flex flex-col items-center gap-1">
-            <div className="w-px h-8 bg-gold/80" />
-            <div className="flex items-center gap-1">
-              <div className="w-4 h-px bg-gold/80" />
-              <div className="w-2 h-2 rounded-full bg-gold" />
-              <div className="w-4 h-px bg-gold/80" />
-            </div>
-            <div className="w-px h-4 bg-gold/80" />
-          </div>
+          <CrossSymbol />
 
-          <h1 className="text-6xl md:text-8xl font-bold tracking-widest text-primary-foreground mb-4 font-serif">
+          <h1 className="text-6xl md:text-8xl font-bold tracking-widest text-primary-foreground mb-6 font-serif">
             IEBAM
           </h1>
 
-          <p className="text-lg md:text-xl text-gold font-medium mb-3 leading-relaxed">
-            Online como porta de entrada.<br />
+          <p className="text-lg md:text-xl text-gold font-medium mb-4 leading-relaxed">
+            Online como porta de entrada.
+            <br />
             Presença e comunhão no presencial.
           </p>
 
           <p className="text-base text-primary-foreground/80 max-w-md leading-relaxed">
-            Estamos felizes por você estar aqui.<br />
-            Escolha abaixo como deseja caminhar conosco.
+            A internet aproxima, mas não substitui o encontro presencial.
+            <br />
+            Estamos felizes por você estar aqui — escolha seu próximo passo.
           </p>
 
-          <div className="mt-8 animate-bounce">
+          <button
+            onClick={() => scrollTo(visitRef)}
+            className="mt-10 animate-bounce"
+            aria-label="Ver conteúdo"
+          >
             <ChevronDown className="text-gold/60 w-6 h-6" />
-          </div>
+          </button>
         </div>
       </header>
 
-      {/* ── CTA BUTTONS ── */}
-      <section className="py-16 px-6 bg-background">
+      {/* ── 3 JORNADAS ── */}
+      <section ref={visitRef} className="py-16 px-6 bg-background scroll-mt-4">
         <div className="max-w-3xl mx-auto">
+          <p className="text-center text-muted-foreground text-sm mb-8">
+            Escolha como deseja caminhar conosco
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <CtaButton
+            <JourneyButton
               onClick={() => scrollTo(visitRef)}
               icon={<MapPin className="w-6 h-6" />}
               label="Quero Visitar"
-              description="Cultos, endereço e horários"
+              description="Como é chegar na IEBAM"
               color="navy"
+              scrollTarget={visitRef}
             />
-            <CtaButton
+            <JourneyButton
               onClick={() => scrollTo(knowRef)}
               icon={<BookOpen className="w-6 h-6" />}
-              label="Quero Conhecer a IEBAM"
-              description="Quem somos e no que cremos"
+              label="Quero Conhecer"
+              description="Vídeos curtos sobre a igreja"
               color="gold"
+              scrollTarget={knowRef}
             />
-            <CtaButton
+            <JourneyButton
               onClick={() => scrollTo(walkRef)}
               icon={<Users className="w-6 h-6" />}
               label="Quero Caminhar"
-              description="Integração e membresia"
+              description="Próximos passos práticos"
               color="navy"
+              scrollTarget={walkRef}
             />
           </div>
         </div>
       </section>
 
-      {/* ── DIVIDER ── */}
-      <div className="flex items-center gap-4 px-8 max-w-3xl mx-auto">
-        <div className="flex-1 h-px bg-border" />
-        <div className="w-1.5 h-1.5 rounded-full bg-gold" />
-        <div className="flex-1 h-px bg-border" />
-      </div>
+      <SectionDivider />
 
-      {/* ── SECTION 1: VISITAR ── */}
-      <section ref={visitRef} className="py-20 px-6 scroll-mt-8">
+      {/* ── SEÇÃO: QUERO VISITAR ── */}
+      <section className="py-20 px-6 scroll-mt-8">
         <div className="max-w-3xl mx-auto">
           <SectionHeader
             icon={<MapPin className="w-5 h-5 text-gold" />}
-            eyebrow="Venha nos conhecer"
-            title="Quero Visitar a IEBAM"
+            eyebrow="Sua primeira vez"
+            title="Como é visitar a IEBAM"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
-            {/* Horários */}
-            <InfoCard>
-              <div className="flex items-center gap-2 mb-4">
-                <Clock className="w-5 h-5 text-gold" />
-                <h3 className="font-semibold text-foreground">Horários de Culto</h3>
-              </div>
-              <ul className="space-y-3 text-muted-foreground text-sm">
-                <li className="flex justify-between items-center border-b border-border pb-2">
-                  <span>Culto Principal</span>
-                  <span className="font-medium text-foreground">Dom · 18h30</span>
-                </li>
-                <li className="flex justify-between items-center">
-                  <span>Escola Bíblica Dominical</span>
-                  <span className="font-medium text-foreground">Dom · 9h</span>
-                </li>
-              </ul>
-            </InfoCard>
-
-            {/* Endereço */}
-            <InfoCard>
-              <div className="flex items-center gap-2 mb-4">
-                <MapPin className="w-5 h-5 text-gold" />
-                <h3 className="font-semibold text-foreground">Endereço</h3>
-              </div>
-              <p className="text-muted-foreground text-sm mb-4">
-                Rua Exemplo, 123<br />
-                Bairro Exemplo — Manaus, AM
-              </p>
-              <a
-                href={MAPS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-navy-dark transition-colors"
-              >
-                <MapPin className="w-4 h-4" />
-                Como Chegar
-              </a>
-            </InfoCard>
+          <div className="mt-10 space-y-4">
+            <VisitItem
+              emoji="👋"
+              title="Recepção calorosa"
+              text="Assim que chegar, uma equipe vai te receber na porta e te ajudar a se sentir em casa."
+            />
+            <VisitItem
+              emoji="🚪"
+              title="Entrada fácil"
+              text="Não tem segredo: basta chegar e entrar. Não precisa avisar antes."
+            />
+            <VisitItem
+              emoji="👕"
+              title="Venha como está"
+              text="Sem dress code. O que importa é a sua presença, não a sua roupa."
+            />
+            <VisitItem
+              emoji="👶"
+              title="Crianças são bem-vindas"
+              text="Pode trazer toda a família. Temos espaço pensado para os pequenos também."
+            />
+            <VisitItem
+              emoji="🤝"
+              title="Equipe de recepção"
+              text="Se tiver qualquer dúvida, nossa equipe está pronta para ajudar — antes, durante ou depois."
+            />
           </div>
 
-          {/* FAQ */}
-          <div className="mt-8">
-            <h3 className="font-serif text-xl font-semibold text-foreground mb-5">
-              Perguntas Frequentes
-            </h3>
-            <div className="space-y-3">
-              <FaqItem
-                q="Preciso avisar antes de ir?"
-                a="Não. Você é sempre bem-vindo, sem necessidade de aviso prévio."
-              />
-              <FaqItem
-                q="Como devo me vestir?"
-                a="Venha como se sentir confortável. O que importa é a sua presença."
-              />
-              <FaqItem
-                q="Posso levar crianças?"
-                a="Sim, com prazer! Temos espaço pensado para toda a família."
-              />
-            </div>
-          </div>
-
-          {/* WhatsApp CTA */}
-          <div className="mt-8">
+          <div className="mt-10">
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-whatsapp text-whatsapp-foreground font-medium hover:bg-whatsapp-hover transition-colors shadow-md"
+              className="inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-whatsapp text-whatsapp-foreground font-medium hover:bg-whatsapp-hover transition-colors shadow-md"
             >
               <MessageCircle className="w-5 h-5" />
               Falar com a Recepção
             </a>
+            <p className="text-muted-foreground text-xs mt-2 ml-1">
+              Mensagem automática · Respondemos em horário comercial
+            </p>
           </div>
         </div>
       </section>
 
       <SectionDivider />
 
-      {/* ── SECTION 2: CONHECER ── */}
+      {/* ── SEÇÃO: QUERO CONHECER ── */}
       <section ref={knowRef} className="py-20 px-6 scroll-mt-8 bg-cream-dark/40">
         <div className="max-w-3xl mx-auto">
           <SectionHeader
             icon={<BookOpen className="w-5 h-5 text-gold" />}
-            eyebrow="Nossa história e fé"
-            title="Conheça a IEBAM"
+            eyebrow="Conheça de perto"
+            title="Trilha de Vídeos"
           />
 
-          {/* Video placeholders */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
-            <VideoPlaceholder label="Quem Somos" />
-            <VideoPlaceholder label="Nossa Mensagem" />
-          </div>
+          <p className="text-muted-foreground mt-4 mb-8 max-w-lg">
+            Vídeos curtos para você conhecer a IEBAM no seu tempo — sem pressa, sem pressão.
+          </p>
 
-          {/* Info cards */}
-          <div className="mt-8 space-y-4">
-            <BeliefCard
-              title="Quem Somos"
-              text="Somos uma igreja comprometida com o ensino bíblico, comunhão e discipulado. Acreditamos que a igreja é família."
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <VideoCard
+              episode={1}
+              title="Comece por aqui"
+              duration="4 min"
+              highlight
             />
-            <BeliefCard
-              title="No que Cremos"
-              text="Cremos na centralidade de Cristo, na autoridade das Escrituras e na vida em comunidade como expressão do Evangelho."
+            <VideoCard
+              episode={2}
+              title="O que acreditamos"
+              duration="5 min"
             />
-            <BeliefCard
-              title="Nossa Visão"
-              text="Ser uma igreja que vive o Evangelho de forma prática e transformadora, impactando famílias e a cidade."
+            <VideoCard
+              episode={3}
+              title="Como é um culto"
+              duration="3 min"
             />
-            <BeliefCard
-              title="Preparação para Comunhão"
-              text="Temos orientações simples sobre a Ceia do Senhor e como participar da vida plena da nossa comunidade."
+            <VideoCard
+              episode={4}
+              title="Comunidade & família"
+              duration="6 min"
+            />
+            <VideoCard
+              episode={5}
+              title="Perguntas frequentes"
+              duration="4 min"
             />
           </div>
         </div>
@@ -224,12 +205,12 @@ const Index = () => {
 
       <SectionDivider />
 
-      {/* ── SECTION 3: CAMINHAR ── */}
+      {/* ── SEÇÃO: QUERO CAMINHAR ── */}
       <section ref={walkRef} className="py-20 px-6 scroll-mt-8">
         <div className="max-w-3xl mx-auto">
           <SectionHeader
             icon={<Heart className="w-5 h-5 text-gold" />}
-            eyebrow="Faça parte"
+            eyebrow="Próximos passos"
             title="Caminhe Conosco"
           />
 
@@ -237,22 +218,22 @@ const Index = () => {
             <StepCard
               number="01"
               title="Classe de Integração"
-              text="Um encontro especial para conhecer mais profundamente a nossa história, valores e visão de igreja."
+              text="Um encontro especial para conhecer a igreja, tirar dúvidas e encontrar seu lugar."
             />
             <StepCard
               number="02"
-              title="Escola Bíblica Dominical"
-              text="Todo domingo às 9h, um ambiente de ensino bíblico, crescimento espiritual e comunhão."
+              title="Vida Comunitária"
+              text="Grupos, encontros e momentos para criar vínculos reais com outras pessoas."
             />
             <StepCard
               number="03"
-              title="Processo de Membresia"
-              text="Passos claros e acolhedores para fazer parte oficialmente da família IEBAM."
+              title="Discipulado & EBD"
+              text="Crescimento espiritual com acompanhamento e ensino bíblico presencial."
             />
             <StepCard
               number="04"
-              title="Oportunidades de Serviço"
-              text="Descubra como servir com seus dons. Há um lugar para você na nossa comunidade."
+              title="Servir com seus dons"
+              text="Descubra como usar o que você tem de melhor para abençoar a comunidade."
             />
           </div>
 
@@ -270,19 +251,74 @@ const Index = () => {
         </div>
       </section>
 
+      <SectionDivider />
+
+      {/* ── O QUE ESPERAR ── */}
+      <section ref={expectRef} className="py-16 px-6 bg-cream-dark/40">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-8">
+            O que esperar
+          </h2>
+          <div className="space-y-5">
+            <ExpectItem text="Você será bem recebido — de verdade." />
+            <ExpectItem text='Não precisa se arrumar "de um jeito". Venha como está.' />
+            <ExpectItem text="A igreja é família. Aqui você tem lugar." />
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ── CTA WHATSAPP FORTE ── */}
+      <section className="py-20 px-6">
+        <div className="max-w-xl mx-auto text-center">
+          <div className="bg-card rounded-3xl border border-border p-10 shadow-sm">
+            <div className="w-14 h-14 rounded-full bg-whatsapp/10 flex items-center justify-center mx-auto mb-5">
+              <MessageCircle className="w-7 h-7 text-whatsapp" />
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-foreground mb-3">
+              Quer conversar?
+            </h2>
+            <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
+              Nossa equipe de recepção está pronta para te ajudar.
+              <br />
+              Respondemos em horário comercial (seg–sex, 9h–17h).
+            </p>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-whatsapp text-whatsapp-foreground font-semibold text-lg hover:bg-whatsapp-hover transition-colors shadow-lg"
+            >
+              <MessageCircle className="w-5 h-5" />
+              Falar com a Recepção
+            </a>
+            <p className="text-muted-foreground text-xs mt-3">
+              Mensagem automática: "Oi! Sou novo(a) e queria visitar domingo."
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ── FOOTER ── */}
       <footer className="bg-primary text-primary-foreground py-10 px-6 text-center">
         <p className="font-serif text-2xl font-semibold tracking-widest mb-2">IEBAM</p>
-        <p className="text-primary-foreground/60 text-sm">
-          Igreja Evangélica Batista — Manaus, AM
-        </p>
-        <div className="mt-4 flex justify-center gap-1">
+        <div className="mt-3 flex justify-center gap-1">
           <div className="w-8 h-px bg-gold/50" />
           <div className="w-1.5 h-1.5 rounded-full bg-gold/70 -mt-0.5" />
           <div className="w-8 h-px bg-gold/50" />
         </div>
-        <p className="text-primary-foreground/40 text-xs mt-4">
-          © {new Date().getFullYear()} IEBAM · Todos os direitos reservados
+        <a
+          href={SITE_OFICIAL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-primary-foreground/50 text-xs mt-5 hover:text-primary-foreground/70 transition-colors"
+        >
+          Informações oficiais (site principal)
+          <ExternalLink className="w-3 h-3" />
+        </a>
+        <p className="text-primary-foreground/30 text-xs mt-3">
+          © {new Date().getFullYear()} IEBAM
         </p>
       </footer>
     </div>
@@ -291,7 +327,21 @@ const Index = () => {
 
 /* ── Sub-components ── */
 
-function CtaButton({
+function CrossSymbol() {
+  return (
+    <div className="mb-6 flex flex-col items-center gap-1">
+      <div className="w-px h-8 bg-gold/80" />
+      <div className="flex items-center gap-1">
+        <div className="w-4 h-px bg-gold/80" />
+        <div className="w-2 h-2 rounded-full bg-gold" />
+        <div className="w-4 h-px bg-gold/80" />
+      </div>
+      <div className="w-px h-4 bg-gold/80" />
+    </div>
+  );
+}
+
+function JourneyButton({
   onClick,
   icon,
   label,
@@ -303,6 +353,7 @@ function CtaButton({
   label: string;
   description: string;
   color: "navy" | "gold";
+  scrollTarget: React.RefObject<HTMLDivElement>;
 }) {
   const base =
     "group flex flex-col items-center gap-3 p-7 rounded-2xl border-2 transition-all duration-200 cursor-pointer text-center w-full active:scale-95";
@@ -345,27 +396,10 @@ function SectionHeader({
   );
 }
 
-function InfoCard({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="bg-card rounded-2xl border border-border p-6 shadow-sm">
-      {children}
-    </div>
-  );
-}
-
-function FaqItem({ q, a }: { q: string; a: string }) {
-  return (
-    <div className="bg-card rounded-xl border border-border p-5">
-      <p className="font-semibold text-foreground text-sm mb-1">{q}</p>
-      <p className="text-muted-foreground text-sm">{a}</p>
-    </div>
-  );
-}
-
-function BeliefCard({ title, text }: { title: string; text: string }) {
+function VisitItem({ emoji, title, text }: { emoji: string; title: string; text: string }) {
   return (
     <div className="flex gap-4 bg-card rounded-xl border border-border p-5">
-      <div className="mt-2 w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
+      <span className="text-2xl shrink-0 mt-0.5">{emoji}</span>
       <div>
         <h4 className="font-semibold text-foreground mb-1">{title}</h4>
         <p className="text-muted-foreground text-sm leading-relaxed">{text}</p>
@@ -374,15 +408,48 @@ function BeliefCard({ title, text }: { title: string; text: string }) {
   );
 }
 
-function StepCard({
-  number,
+function VideoCard({
+  episode,
   title,
-  text,
+  duration,
+  highlight,
 }: {
-  number: string;
+  episode: number;
   title: string;
-  text: string;
+  duration: string;
+  highlight?: boolean;
 }) {
+  return (
+    <div
+      className={`rounded-2xl border-2 overflow-hidden cursor-pointer hover:shadow-md transition-all group ${
+        highlight
+          ? "border-gold bg-gold/5"
+          : "border-border bg-card hover:border-gold/40"
+      }`}
+    >
+      <div className="aspect-video bg-primary/8 flex items-center justify-center relative">
+        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
+          <Play className="w-5 h-5 text-primary group-hover:text-gold transition-colors ml-0.5" />
+        </div>
+        {highlight && (
+          <span className="absolute top-3 left-3 bg-gold text-accent-foreground text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">
+            Comece aqui
+          </span>
+        )}
+        <span className="absolute bottom-2 right-3 text-[11px] text-muted-foreground flex items-center gap-1">
+          <Clock className="w-3 h-3" />
+          {duration}
+        </span>
+      </div>
+      <div className="p-4">
+        <p className="text-xs text-muted-foreground mb-1">Episódio {episode}</p>
+        <h4 className="font-semibold text-foreground text-sm">{title}</h4>
+      </div>
+    </div>
+  );
+}
+
+function StepCard({ number, title, text }: { number: string; title: string; text: string }) {
   return (
     <div className="bg-card rounded-2xl border border-border p-6 hover:border-accent/50 hover:shadow-md transition-all">
       <span className="text-3xl font-serif font-bold text-gold/30">{number}</span>
@@ -392,13 +459,11 @@ function StepCard({
   );
 }
 
-function VideoPlaceholder({ label }: { label: string }) {
+function ExpectItem({ text }: { text: string }) {
   return (
-    <div className="aspect-video rounded-2xl bg-primary/8 border-2 border-dashed border-border flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-gold/50 transition-colors group">
-      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
-        <Play className="w-5 h-5 text-primary group-hover:text-gold transition-colors ml-0.5" />
-      </div>
-      <span className="text-sm text-muted-foreground">{label}</span>
+    <div className="flex items-start gap-3 text-left max-w-md mx-auto">
+      <CheckCircle2 className="w-5 h-5 text-gold shrink-0 mt-0.5" />
+      <p className="text-foreground">{text}</p>
     </div>
   );
 }
