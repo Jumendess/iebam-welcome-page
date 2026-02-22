@@ -52,7 +52,7 @@ const Index = () => {
           <img
             src={logoIEBAM}
             alt="IEBAM - Igreja Evangélica Batista no Alto da Mooca"
-            className="w-64 md:w-80 mb-6 drop-shadow-lg"
+            className="w-72 md:w-96 mb-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] brightness-110 contrast-110"
           />
 
           <p className="text-lg md:text-xl text-gold font-medium mb-4 leading-relaxed">
