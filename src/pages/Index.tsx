@@ -221,7 +221,7 @@ const Index = () => {
             />
             <StepCard
               number="03"
-              title="Discipulado & EBD"
+              title="EBD"
               text="Crescimento espiritual com acompanhamento e ensino bíblico presencial."
             />
             <StepCard
