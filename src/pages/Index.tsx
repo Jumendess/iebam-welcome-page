@@ -386,7 +386,7 @@ function VideoCard({
 function StepCard({ number, title, text }: { number: string; title: string; text: string }) {
   return (
     <div className="bg-card rounded-2xl border border-border p-6 hover:border-accent/50 hover:shadow-md transition-all">
-      <span className="text-3xl font-serif font-bold text-gold/30">{number}</span>
+      <span className="text-3xl font-serif font-bold text-gold">{number}</span>
       <h3 className="font-semibold text-foreground mt-2 mb-2">{title}</h3>
       <p className="text-muted-foreground text-sm leading-relaxed">{text}</p>
     </div>
