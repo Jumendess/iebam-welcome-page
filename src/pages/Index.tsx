@@ -23,7 +23,7 @@ const Index = () => {
   const visitRef = useRef<HTMLDivElement>(null);
   const knowRef = useRef<HTMLDivElement>(null);
   const walkRef = useRef<HTMLDivElement>(null);
-  const expectRef = useRef<HTMLDivElement>(null);
+  
 
   const scrollTo = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -60,7 +60,7 @@ const Index = () => {
           </p>
 
           <p className="text-base text-primary-foreground/80 max-w-md leading-relaxed">
-            A internet aproxima, mas não substitui o encontro presencial. Estamos felizes por você estar aqui — escolha seu próximo passo.
+            A internet aproxima, mas não substitui o encontro presencial. Estamos felizes por você estar aqui. Escolha seu próximo passo.
           </p>
 
           <button
@@ -132,8 +132,8 @@ const Index = () => {
             />
             <VisitItem
               emoji="👕"
-              title="Venha como está"
-              text="Sem dress code. O que importa é a sua presença, não a sua roupa."
+              title="Venha como você está"
+              text="Valorizamos sua presença e o respeito pelo ambiente que compartilhamos."
             />
             <VisitItem
               emoji="👶"
@@ -143,7 +143,7 @@ const Index = () => {
             <VisitItem
               emoji="🤝"
               title="Equipe de recepção"
-              text="Se tiver qualquer dúvida, nossa equipe está pronta para ajudar — antes, durante ou depois."
+              text="Se tiver qualquer dúvida, nossa equipe está pronta para ajudar. Antes, durante ou depois."
             />
           </div>
 
@@ -157,9 +157,6 @@ const Index = () => {
               <WhatsAppIcon className="w-7 h-7" />
               Falar com a Recepção
             </a>
-            <p className="text-muted-foreground text-xs mt-2 ml-1">
-              Mensagem automática · Respondemos de segunda a domingo, todos os horários
-            </p>
           </div>
         </div>
       </section>
@@ -239,62 +236,15 @@ const Index = () => {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-semibold text-lg hover:bg-navy-dark transition-all shadow-lg hover:shadow-xl"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Quero dar o primeiro passo
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <SectionDivider />
-
-      {/* ── O QUE ESPERAR ── */}
-      <section ref={expectRef} className="py-16 px-6 bg-cream-dark/40">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-8">
-            O que esperar
-          </h2>
-          <div className="space-y-5">
-            <ExpectItem text="Você será bem recebido — de verdade." />
-            <ExpectItem text='Não precisa se arrumar "de um jeito". Venha como está.' />
-            <ExpectItem text="A igreja é família. Aqui você tem lugar." />
-          </div>
-        </div>
-      </section>
-
-      <SectionDivider />
-
-      {/* ── CTA WHATSAPP FORTE ── */}
-      <section className="py-20 px-6">
-        <div className="max-w-xl mx-auto text-center">
-          <div className="bg-card rounded-3xl border border-border p-10 shadow-sm">
-            <div className="w-16 h-16 rounded-full bg-whatsapp/10 flex items-center justify-center mx-auto mb-5">
-              <WhatsAppIcon className="w-9 h-9 text-whatsapp" />
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-foreground mb-3">
-              Quer conversar?
-            </h2>
-            <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
-              Nossa equipe de recepção está pronta para te ajudar.
-              Respondemos todos os dias, de segunda a domingo, em todos os horários.
-            </p>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-whatsapp text-whatsapp-foreground font-bold text-xl hover:bg-whatsapp-hover transition-colors shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-whatsapp text-whatsapp-foreground font-semibold text-lg hover:bg-whatsapp-hover transition-colors shadow-lg hover:shadow-xl"
             >
               <WhatsAppIcon className="w-7 h-7" />
               Falar com a Recepção
             </a>
-            <p className="text-muted-foreground text-xs mt-3">
-              Mensagem automática: "Oi! Sou novo(a) e queria visitar domingo."
-            </p>
           </div>
         </div>
       </section>
+
 
       {/* ── FOOTER ── */}
       <footer className="bg-primary text-primary-foreground py-10 px-6 text-center">
