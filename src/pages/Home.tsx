@@ -65,7 +65,7 @@ function useYouTubeVideos() {
       return;
     }
 
-    const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${YOUTUBE_CHANNEL_ID}&part=snippet,id&order=date&maxResults=3&type=video`;
+    const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${YOUTUBE_CHANNEL_ID}&part=snippet,id&order=date&maxResults=1&type=video`;
 
     fetch(url)
       .then((r) => r.json())
@@ -296,11 +296,8 @@ const Home = () => {
           )}
 
           {!loading && !error && videos.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="max-w-2xl mx-auto">
               <VideoCard video={videos[0]} featured />
-              {videos.slice(1).map((v) => (
-                <VideoCard key={v.id} video={v} />
-              ))}
             </div>
           )}
 
