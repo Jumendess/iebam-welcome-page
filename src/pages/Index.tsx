@@ -60,7 +60,7 @@ const Index = () => {
           </p>
 
           <p className="text-base text-primary-foreground/80 max-w-md leading-relaxed">
-            A internet aproxima, mas não substitui o encontro presencial. Estamos felizes por você estar aqui — escolha seu próximo passo.
+            A internet aproxima, mas não substitui o encontro presencial.Estamos felizes por você estar aqui — escolha seu próximo passo.
           </p>
 
           <button
