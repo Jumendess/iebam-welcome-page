@@ -2,23 +2,33 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   CULTOS, CULTOS_SEMANAIS, VERSICULOS, AGENDA_ANUAL, PASTORES,
-  NAVY, GOLD, SERIF,
+  TEXTOS_IGREJA, NAVY, GOLD, SERIF,
   IGREJA_NOME_COMPLETO, IGREJA_SLOGAN, SITE_OFICIAL,
   ENDERECO_RUA, ENDERECO_BAIRRO, ENDERECO_CIDADE,
 } from "@/config/igreja";
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || "admin123";
 
-type Culto     = { titulo: string; horario: string; icon: string };
-type CultoSem  = { titulo: string; descricao: string; dia: string; horario: string; icon: string };
-type Versiculo = { text: string; ref: string };
-type Evento    = { mes: number; dia: string; titulo: string; descricao: string; tipo: string; youtube?: string };
-type Pastor    = { nome: string; periodo: string; cargo?: string; atual?: boolean; telefone?: string; email?: string };
+// ── Tipos ─────────────────────────────────────────────────────────
+type Culto      = { titulo: string; horario: string; icon: string };
+type CultoSem   = { titulo: string; descricao: string; dia: string; horario: string; icon: string };
+type Versiculo  = { text: string; ref: string };
+type Evento     = { mes: number; dia: string; titulo: string; descricao: string; tipo: string; youtube?: string };
+type Pastor     = { nome: string; periodo: string; cargo?: string; atual?: boolean; telefone?: string; email?: string };
+type TextoIgreja = { titulo: string; texto: string };
+
 type AdminData = {
+  // Identidade
   slogan: string; siteOficial: string;
   enderecoRua: string; enderecoBairro: string; enderecoCidade: string;
-  cultos: Culto[]; cultosSem: CultoSem[];
-  versiculos: Versiculo[]; agenda: Evento[]; pastores: Pastor[];
+  // Home
+  cultos: Culto[]; versiculos: Versiculo[];
+  // Eventos
+  cultosSem: CultoSem[]; agenda: Evento[];
+  // A Igreja
+  textosIgreja: TextoIgreja[];
+  // Pastores
+  pastores: Pastor[];
 };
 
 const MESES = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
@@ -28,12 +38,14 @@ const defaultData: AdminData = {
   slogan: IGREJA_SLOGAN, siteOficial: SITE_OFICIAL,
   enderecoRua: ENDERECO_RUA, enderecoBairro: ENDERECO_BAIRRO, enderecoCidade: ENDERECO_CIDADE,
   cultos: CULTOS.map(c=>({titulo:c.titulo,horario:c.horario,icon:c.icon})),
-  cultosSem: CULTOS_SEMANAIS.map(c=>({...c})),
   versiculos: VERSICULOS.map(v=>({...v})),
+  cultosSem: CULTOS_SEMANAIS.map(c=>({...c})),
   agenda: AGENDA_ANUAL.map(e=>({...e})),
+  textosIgreja: TEXTOS_IGREJA.map(t=>({...t})),
   pastores: PASTORES.map(p=>({...p})),
 };
 
+// ── Gerador do igreja.ts ──────────────────────────────────────────
 function generateTs(d: AdminData): string {
   return `// ═══════════════════════════════════════════════════════════════
 // CONFIGURAÇÕES DA IEBAM — gerado pelo painel admin
@@ -87,10 +99,12 @@ export const GALERIA: FotoGaleria[] = [];
 export const NAVY  = "#1a2e5a";
 export const GOLD  = "#c9a84c";
 export const SERIF = "Georgia, 'Times New Roman', serif";
+
+export const TEXTOS_IGREJA = ${JSON.stringify(d.textosIgreja, null, 2)};
 `;
 }
 
-// ── UI ────────────────────────────────────────────────────────────
+// ── UI Base ───────────────────────────────────────────────────────
 const Input = (p: React.InputHTMLAttributes<HTMLInputElement>) => (
   <input {...p} className={`w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-yellow-400 bg-white transition-colors ${p.className??""}`}/>
 );
@@ -100,20 +114,34 @@ const Textarea = (p: React.TextareaHTMLAttributes<HTMLTextAreaElement>) => (
 const Label = ({children}:{children:React.ReactNode}) => (
   <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1 block">{children}</label>
 );
-const Card = ({title,icon,children}:{title:string;icon:string;children:React.ReactNode}) => (
+const Card = ({title,icon,badge,children}:{title:string;icon:string;badge?:string;children:React.ReactNode}) => (
   <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-5">
-    <div className="flex items-center gap-2 px-6 py-4 border-b border-gray-50" style={{background:`${NAVY}08`}}>
-      <span>{icon}</span>
-      <h2 className="font-bold text-sm" style={{color:NAVY,fontFamily:SERIF}}>{title}</h2>
+    <div className="flex items-center justify-between px-6 py-4 border-b border-gray-50" style={{background:`${NAVY}08`}}>
+      <div className="flex items-center gap-2">
+        <span>{icon}</span>
+        <h2 className="font-bold text-sm" style={{color:NAVY,fontFamily:SERIF}}>{title}</h2>
+      </div>
+      {badge&&<span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{background:`${GOLD}20`,color:"#7a5a00"}}>{badge}</span>}
     </div>
     <div className="p-6">{children}</div>
   </div>
+);
+const ItemBox = ({children, onDelete}:{children:React.ReactNode;onDelete?:()=>void}) => (
+  <div className="p-4 rounded-xl bg-gray-50 border border-gray-100 space-y-3 relative">
+    {onDelete&&<button onClick={onDelete} className="absolute top-3 right-3 text-xs text-red-400 hover:text-red-600">✕</button>}
+    {children}
+  </div>
+);
+const AddBtn = ({onClick,label}:{onClick:()=>void;label:string}) => (
+  <button onClick={onClick} className="w-full py-3 rounded-xl border-2 border-dashed border-gray-200 text-gray-400 text-sm hover:border-yellow-400 hover:text-yellow-600 transition-colors mt-2">
+    + {label}
+  </button>
 );
 
 // ── LOGIN ─────────────────────────────────────────────────────────
 const Login = ({onLogin}:{onLogin:()=>void}) => {
   const [pw,setPw]=useState(""); const [err,setErr]=useState(false); const [show,setShow]=useState(false);
-  const go = () => { if(pw===ADMIN_PASSWORD){sessionStorage.setItem("iebam_admin_auth","1");onLogin();}else{setErr(true);setPw("");} };
+  const go=()=>{if(pw===ADMIN_PASSWORD){sessionStorage.setItem("iebam_admin_auth","1");onLogin();}else{setErr(true);setPw("");}};
   return (
     <div className="min-h-screen flex items-center justify-center px-4" style={{background:"#f8f7f4"}}>
       <div className="w-full max-w-sm">
@@ -145,45 +173,47 @@ const Login = ({onLogin}:{onLogin:()=>void}) => {
   );
 };
 
+// ── TABS ──────────────────────────────────────────────────────────
+type Tab = "home"|"igreja"|"eventos"|"contato"|"pastores";
+
 // ── PAINEL ────────────────────────────────────────────────────────
 const Panel = ({onLogout}:{onLogout:()=>void}) => {
-  const [data,setData] = useState<AdminData>({...defaultData});
-  const [tab,setTab]   = useState<"identidade"|"cultos"|"versiculos"|"agenda"|"pastores">("identidade");
-  const [status,setStatus] = useState<"idle"|"loading"|"ok"|"error">("idle");
-  const [msg,setMsg]   = useState("");
+  const [data,setData]=useState<AdminData>({...defaultData});
+  const [tab,setTab]=useState<Tab>("home");
+  const [status,setStatus]=useState<"idle"|"loading"|"ok"|"error">("idle");
+  const [msg,setMsg]=useState("");
 
-  const tabs=[
-    {key:"identidade",label:"🏛 Identidade"},
-    {key:"cultos",    label:"🙏 Cultos"},
-    {key:"versiculos",label:"📖 Versículos"},
-    {key:"agenda",    label:"📅 Agenda"},
-    {key:"pastores",  label:"👤 Pastores"},
-  ] as const;
+  const tabs:[Tab,string,string][]=[
+    ["home",    "🏠","Home"],
+    ["igreja",  "🏛","A Igreja"],
+    ["eventos", "📅","Eventos"],
+    ["contato", "📞","Contato"],
+    ["pastores","👤","Pastores"],
+  ];
 
-  const upd = <K extends keyof AdminData>(k:K,v:AdminData[K]) => setData(d=>({...d,[k]:v}));
-
-  const updArr = <T,>(key:keyof AdminData, i:number, k:keyof T, v:unknown) => {
-    const arr = [...(data[key] as T[])];
-    arr[i] = {...arr[i],[k]:v};
-    upd(key as any, arr as any);
+  const upd=<K extends keyof AdminData>(k:K,v:AdminData[K])=>setData(d=>({...d,[k]:v}));
+  const updArr=<T,>(key:keyof AdminData,i:number,k:keyof T,v:unknown)=>{
+    const arr=[...(data[key] as T[])];
+    arr[i]={...arr[i],[k]:v};
+    upd(key as any,arr as any);
   };
 
-  const deploy = async () => {
-    setStatus("loading"); setMsg("");
-    try {
-      const res = await fetch("/api/deploy",{
-        method:"POST", headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({password:ADMIN_PASSWORD, content:generateTs(data)}),
+  const deploy=async()=>{
+    setStatus("loading");setMsg("");
+    try{
+      const res=await fetch("/api/deploy",{
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({password:ADMIN_PASSWORD,content:generateTs(data)}),
       });
-      const json = await res.json();
-      if(!res.ok) throw new Error(json.error||"Erro");
-      setStatus("ok"); setMsg("✅ Deploy enviado! Aguarde ~1 minuto para publicar.");
-    } catch(e:any){ setStatus("error"); setMsg("❌ "+e.message); }
+      const json=await res.json();
+      if(!res.ok)throw new Error(json.error||"Erro");
+      setStatus("ok");setMsg("✅ Deploy enviado! Aguarde ~1 minuto.");
+    }catch(e:any){setStatus("error");setMsg("❌ "+e.message);}
   };
 
   return (
-    <div className="min-h-screen pb-32" style={{background:"#f8f7f4"}}>
-      {/* Header */}
+    <div className="min-h-screen pb-28" style={{background:"#f8f7f4"}}>
+      {/* HEADER */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-30">
         <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -192,7 +222,7 @@ const Panel = ({onLogout}:{onLogout:()=>void}) => {
             </div>
             <div>
               <p className="font-bold text-sm" style={{color:NAVY}}>Painel Admin — IEBAM</p>
-              <p className="text-xs text-gray-400">Edite e publique direto no site</p>
+              <p className="text-xs text-gray-400">Edite qualquer página e publique</p>
             </div>
           </div>
           <div className="flex gap-2">
@@ -203,53 +233,74 @@ const Panel = ({onLogout}:{onLogout:()=>void}) => {
       </header>
 
       <div className="max-w-5xl mx-auto px-6 py-8">
-        {/* Tabs */}
-        <div className="flex flex-wrap gap-1 mb-6 bg-white rounded-2xl p-1.5 border border-gray-100 shadow-sm">
-          {tabs.map(t=>(
-            <button key={t.key} onClick={()=>setTab(t.key)}
-              className="flex-1 min-w-fit px-3 py-2 rounded-xl text-xs font-semibold transition-all"
-              style={{background:tab===t.key?NAVY:"transparent",color:tab===t.key?"white":"#6b7280"}}>
-              {t.label}
+        {/* TABS */}
+        <div className="flex gap-1 mb-6 bg-white rounded-2xl p-1.5 border border-gray-100 shadow-sm overflow-x-auto">
+          {tabs.map(([key,icon,label])=>(
+            <button key={key} onClick={()=>setTab(key)}
+              className="flex-1 min-w-fit px-4 py-2.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap flex items-center justify-center gap-1.5"
+              style={{background:tab===key?NAVY:"transparent",color:tab===key?"white":"#6b7280"}}>
+              <span>{icon}</span>{label}
             </button>
           ))}
         </div>
 
-        {/* ── IDENTIDADE ── */}
-        {tab==="identidade"&&<>
-          <Card title="Identidade da Igreja" icon="🏛">
+        {/* ══ HOME ══ */}
+        {tab==="home"&&<>
+          <Card title="Identidade e Slogan" icon="✏️" badge="Hero da Home">
             <div className="space-y-4">
-              <div><Label>Slogan</Label><Textarea rows={2} value={data.slogan} onChange={e=>upd("slogan",e.target.value)}/></div>
+              <div><Label>Slogan principal</Label><Textarea rows={2} value={data.slogan} onChange={e=>upd("slogan",e.target.value)}/></div>
               <div><Label>Site Oficial</Label><Input value={data.siteOficial} onChange={e=>upd("siteOficial",e.target.value)}/></div>
             </div>
           </Card>
-          <Card title="Endereço" icon="📍">
-            <div className="space-y-4">
-              <div><Label>Rua e número</Label><Input value={data.enderecoRua} onChange={e=>upd("enderecoRua",e.target.value)}/></div>
-              <div><Label>Bairro</Label><Input value={data.enderecoBairro} onChange={e=>upd("enderecoBairro",e.target.value)}/></div>
-              <div><Label>Cidade e CEP</Label><Input value={data.enderecoCidade} onChange={e=>upd("enderecoCidade",e.target.value)}/></div>
-            </div>
-          </Card>
-        </>}
 
-        {/* ── CULTOS ── */}
-        {tab==="cultos"&&<>
-          <Card title="Cards da Home" icon="🏠">
+          <Card title="Cards de Horários" icon="🕐" badge="Seção Cultos">
             <div className="space-y-4">
               {data.cultos.map((c,i)=>(
-                <div key={i} className="p-4 rounded-xl bg-gray-50 border border-gray-100 space-y-3">
+                <ItemBox key={i}>
                   <div className="flex gap-2">
                     <div className="w-16"><Label>Ícone</Label><Input value={c.icon} onChange={e=>updArr<Culto>("cultos",i,"icon",e.target.value)}/></div>
                     <div className="flex-1"><Label>Título</Label><Input value={c.titulo} onChange={e=>updArr<Culto>("cultos",i,"titulo",e.target.value)}/></div>
                   </div>
                   <div><Label>Horário</Label><Input value={c.horario} onChange={e=>updArr<Culto>("cultos",i,"horario",e.target.value)}/></div>
-                </div>
+                </ItemBox>
               ))}
             </div>
           </Card>
-          <Card title="Cultos Semanais — página Eventos" icon="📋">
+
+          <Card title="Versículos do Carrossel" icon="📖" badge="Seção Versículos">
+            <div className="space-y-4">
+              {data.versiculos.map((v,i)=>(
+                <ItemBox key={i} onDelete={()=>upd("versiculos",data.versiculos.filter((_,idx)=>idx!==i))}>
+                  <span className="text-xs font-bold text-gray-400">Versículo {i+1}</span>
+                  <div><Label>Texto</Label><Textarea rows={2} value={v.text} onChange={e=>updArr<Versiculo>("versiculos",i,"text",e.target.value)}/></div>
+                  <div><Label>Referência</Label><Input value={v.ref} onChange={e=>updArr<Versiculo>("versiculos",i,"ref",e.target.value)}/></div>
+                </ItemBox>
+              ))}
+              <AddBtn label="Adicionar versículo" onClick={()=>upd("versiculos",[...data.versiculos,{text:"",ref:""}])}/>
+            </div>
+          </Card>
+        </>}
+
+        {/* ══ A IGREJA ══ */}
+        {tab==="igreja"&&<>
+          <Card title="Textos Institucionais" icon="📜" badge="Página A Igreja">
+            <div className="space-y-4">
+              {data.textosIgreja.map((t,i)=>(
+                <ItemBox key={i}>
+                  <div><Label>Título da seção</Label><Input value={t.titulo} onChange={e=>updArr<TextoIgreja>("textosIgreja",i,"titulo",e.target.value)}/></div>
+                  <div><Label>Texto</Label><Textarea rows={5} value={t.texto} onChange={e=>updArr<TextoIgreja>("textosIgreja",i,"texto",e.target.value)}/></div>
+                </ItemBox>
+              ))}
+            </div>
+          </Card>
+        </>}
+
+        {/* ══ EVENTOS ══ */}
+        {tab==="eventos"&&<>
+          <Card title="Cultos Semanais" icon="🙏" badge="Página Eventos">
             <div className="space-y-4">
               {data.cultosSem.map((c,i)=>(
-                <div key={i} className="p-4 rounded-xl bg-gray-50 border border-gray-100 space-y-3">
+                <ItemBox key={i}>
                   <div className="flex gap-2">
                     <div className="w-16"><Label>Ícone</Label><Input value={c.icon} onChange={e=>updArr<CultoSem>("cultosSem",i,"icon",e.target.value)}/></div>
                     <div className="flex-1"><Label>Título</Label><Input value={c.titulo} onChange={e=>updArr<CultoSem>("cultosSem",i,"titulo",e.target.value)}/></div>
@@ -259,38 +310,15 @@ const Panel = ({onLogout}:{onLogout:()=>void}) => {
                     <div><Label>Horário</Label><Input value={c.horario} onChange={e=>updArr<CultoSem>("cultosSem",i,"horario",e.target.value)}/></div>
                   </div>
                   <div><Label>Descrição</Label><Textarea rows={2} value={c.descricao} onChange={e=>updArr<CultoSem>("cultosSem",i,"descricao",e.target.value)}/></div>
-                </div>
+                </ItemBox>
               ))}
             </div>
           </Card>
-        </>}
 
-        {/* ── VERSÍCULOS ── */}
-        {tab==="versiculos"&&
-          <Card title="Versículos do Carrossel" icon="📖">
-            <div className="space-y-4">
-              {data.versiculos.map((v,i)=>(
-                <div key={i} className="p-4 rounded-xl bg-gray-50 border border-gray-100 space-y-3">
-                  <span className="text-xs font-bold text-gray-400">Versículo {i+1}</span>
-                  <div><Label>Texto</Label><Textarea rows={2} value={v.text} onChange={e=>updArr<Versiculo>("versiculos",i,"text",e.target.value)}/></div>
-                  <div><Label>Referência</Label><Input value={v.ref} onChange={e=>updArr<Versiculo>("versiculos",i,"ref",e.target.value)}/></div>
-                </div>
-              ))}
-            </div>
-          </Card>
-        }
-
-        {/* ── AGENDA ── */}
-        {tab==="agenda"&&
-          <Card title="Agenda Anual" icon="📅">
+          <Card title="Agenda Anual" icon="📅" badge="Página Eventos">
             <div className="space-y-3">
               {data.agenda.map((e,i)=>(
-                <div key={i} className="p-4 rounded-xl bg-gray-50 border border-gray-100 space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs font-bold text-gray-400">Evento {i+1}</span>
-                    <button onClick={()=>upd("agenda",data.agenda.filter((_,idx)=>idx!==i))}
-                      className="text-xs text-red-400 hover:text-red-600">✕ Remover</button>
-                  </div>
+                <ItemBox key={i} onDelete={()=>upd("agenda",data.agenda.filter((_,idx)=>idx!==i))}>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <Label>Mês</Label>
@@ -313,25 +341,36 @@ const Panel = ({onLogout}:{onLogout:()=>void}) => {
                     </div>
                     <div><Label>YouTube (opcional)</Label><Input value={e.youtube||""} onChange={ev=>updArr<Evento>("agenda",i,"youtube",ev.target.value)} placeholder="https://..."/></div>
                   </div>
-                </div>
+                </ItemBox>
               ))}
-              <button onClick={()=>upd("agenda",[...data.agenda,{mes:1,dia:"TBD",titulo:"Novo evento",descricao:"",tipo:"especial"}])}
-                className="w-full py-3 rounded-xl border-2 border-dashed border-gray-200 text-gray-400 text-sm hover:border-yellow-400 hover:text-yellow-600 transition-colors">
-                + Adicionar evento
-              </button>
+              <AddBtn label="Adicionar evento" onClick={()=>upd("agenda",[...data.agenda,{mes:1,dia:"TBD",titulo:"Novo evento",descricao:"",tipo:"especial"}])}/>
             </div>
           </Card>
-        }
+        </>}
 
-        {/* ── PASTORES ── */}
+        {/* ══ CONTATO ══ */}
+        {tab==="contato"&&<>
+          <Card title="Endereço" icon="📍" badge="Página Contato">
+            <div className="space-y-4">
+              <div><Label>Rua e número</Label><Input value={data.enderecoRua} onChange={e=>upd("enderecoRua",e.target.value)}/></div>
+              <div><Label>Bairro</Label><Input value={data.enderecoBairro} onChange={e=>upd("enderecoBairro",e.target.value)}/></div>
+              <div><Label>Cidade e CEP</Label><Input value={data.enderecoCidade} onChange={e=>upd("enderecoCidade",e.target.value)}/></div>
+            </div>
+          </Card>
+          <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 text-sm text-yellow-800">
+            <strong>💡 Dica:</strong> WhatsApp, e-mail e redes sociais são configurados pelas variáveis de ambiente no Vercel (Settings → Environment Variables). Não aparecem aqui para não expor dados sensíveis.
+          </div>
+        </>}
+
+        {/* ══ PASTORES ══ */}
         {tab==="pastores"&&
-          <Card title="Pastores" icon="👤">
+          <Card title="Pastores" icon="👤" badge="Página A Igreja">
             <div className="space-y-4">
               {data.pastores.map((p,i)=>(
-                <div key={i} className="p-4 rounded-xl bg-gray-50 border border-gray-100 space-y-3">
-                  <div className="flex items-center gap-2">
+                <ItemBox key={i}>
+                  <div className="flex items-center gap-2 mb-1">
                     <span className="text-xs font-bold text-gray-400">Pastor {i+1}</span>
-                    {p.atual&&<span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{background:`${GOLD}25`,color:"#7a5a00"}}>Atual</span>}
+                    {p.atual&&<span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{background:`${GOLD}25`,color:"#7a5a00"}}>Pastor Atual</span>}
                   </div>
                   <div><Label>Nome</Label><Input value={p.nome} onChange={e=>updArr<Pastor>("pastores",i,"nome",e.target.value)}/></div>
                   <div><Label>Período</Label><Input value={p.periodo} onChange={e=>updArr<Pastor>("pastores",i,"periodo",e.target.value)}/></div>
@@ -342,17 +381,16 @@ const Panel = ({onLogout}:{onLogout:()=>void}) => {
                       <div><Label>E-mail</Label><Input value={p.email||""} onChange={e=>updArr<Pastor>("pastores",i,"email",e.target.value)}/></div>
                     </div>
                   </>}
-                </div>
+                </ItemBox>
               ))}
             </div>
           </Card>
         }
       </div>
 
-      {/* BOTÃO FIXO NO RODAPÉ */}
+      {/* RODAPÉ FIXO */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-4 flex items-center justify-between shadow-xl z-40">
         <div>
-          {msg&&<p className="text-sm font-medium" style={{color:status==="ok"?"#2e6b3e":"#dc2626"}}>{msg}</p>}
           {status==="loading"&&<p className="text-sm text-gray-400 flex items-center gap-2">
             <svg className="animate-spin w-4 h-4" style={{color:GOLD}} fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
@@ -360,9 +398,10 @@ const Panel = ({onLogout}:{onLogout:()=>void}) => {
             </svg>
             Enviando para o GitHub...
           </p>}
+          {msg&&<p className="text-sm font-medium" style={{color:status==="ok"?"#2e6b3e":"#dc2626"}}>{msg}</p>}
         </div>
         <button onClick={deploy} disabled={status==="loading"}
-          className="px-6 py-3 rounded-xl font-bold text-sm text-white hover:brightness-110 disabled:opacity-50 flex items-center gap-2 shadow-md transition-all"
+          className="px-6 py-3 rounded-xl font-bold text-sm text-white hover:brightness-110 disabled:opacity-50 flex items-center gap-2 shadow-md"
           style={{background:NAVY}}>
           🚀 Salvar e fazer Deploy
         </button>
@@ -371,11 +410,11 @@ const Panel = ({onLogout}:{onLogout:()=>void}) => {
   );
 };
 
-const Admin = () => {
-  const [authed,setAuthed] = useState(()=>sessionStorage.getItem("iebam_admin_auth")==="1");
+const Admin=()=>{
+  const [authed,setAuthed]=useState(()=>sessionStorage.getItem("iebam_admin_auth")==="1");
   return authed
-    ? <Panel onLogout={()=>{sessionStorage.removeItem("iebam_admin_auth");setAuthed(false);}}/>
-    : <Login onLogin={()=>setAuthed(true)}/>;
+    ?<Panel onLogout={()=>{sessionStorage.removeItem("iebam_admin_auth");setAuthed(false);}}/>
+    :<Login onLogin={()=>setAuthed(true)}/>;
 };
 
 export default Admin;

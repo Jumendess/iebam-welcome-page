@@ -209,3 +209,31 @@ export const GALERIA: FotoGaleria[] = [
 export const NAVY  = "#1a2e5a";
 export const GOLD  = "#c9a84c";
 export const SERIF = "Georgia, 'Times New Roman', serif";
+
+// ── Textos da página A Igreja ────────────────────────────────────
+export const TEXTOS_IGREJA = [
+  {
+    titulo: "Somos uma Igreja",
+    texto: "Igreja é um grupo de pessoas que se unem em torno da pessoa de Jesus Cristo. Isto é, somos uma ASSEMBLEIA de cristãos que comungamos a mesma fé dos apóstolos de Jesus. Nós reconhecemos que Jesus Cristo é nosso Senhor e Salvador pessoal. Procuramos seguir seus ensinamentos, permanecendo fiéis ao que temos na Bíblia Sagrada. Costumamos chamar uns aos outros de irmãos, pois tivemos a experiência do nosso nascimento espiritual, tornando-nos assim filhos de Deus. Nós nos reunimos para louvar a Deus, cultivando Seu santo nome e estudando Sua Palavra.",
+  },
+  {
+    titulo: "Somos uma Igreja Evangélica",
+    texto: "Para nós a Bíblia é a única fundamento da nossa fé. Sabemos que a Bíblia é a revelação de Deus para os homens; podemos assim conhecer Deus pelo que Ele mesmo revelou. Seus atos através da Bíblia é o que nos submetermos ao que nela está escrito. O evangelho é a boas novas para nossa vida e para cada pessoa que o receber. Assim como os doze apóstolos de Jesus, saímos do evangelismo à nossa missão; sabemos que podem transformar a si todos, por isso procuramos divulgar isso ao máximo. O Novo Testamento fala das boas novas de Jesus.",
+  },
+  {
+    titulo: "Somos uma Igreja Evangélica Batista",
+    texto: "Os batistas são conhecidos no mundo todo. São como um ramo das grandes igrejas que é o cristianismo. São bem conhecidos no Brasil, são ainda mais nos EUA, na Inglaterra e na Alemanha, como também na Romênia, na Índia e na Rússia. Cremos que Jesus Cristo é o único meio de salvação. Só pela Graça somos salvos por meio da fé. Uma de nossas grandes convicções é que ninguém nasce cristão, mas que cada um é chamado a se tornar cristão por sua fé pessoal em Jesus. É pelo encontro com Jesus Cristo que o homem pode ter um relacionamento direto com Deus.",
+  },
+  {
+    titulo: "Somos defensores da liberdade individual",
+    texto: "Na Igreja Batista não há hierarquia: só Jesus Cristo é o Senhor. Ele é o verdadeiro chefe da Igreja. A mensagem dos batistas é uma mensagem de LIBERDADE. A Igreja não pode assumir um poder temporal, pois sua vocação é proclamar o amor, a fé e a eterna esperança do retorno de Cristo.",
+  },
+  {
+    titulo: "Uma Igreja Autônoma Independente",
+    texto: "Nosso desejo como Igreja local é a consecução de objetivos mais amplos que os limites de nosso próprio bairro ou comunidade. Portanto, nós unimos, pondo mãos de solidariedade e comunhão com igrejas que têm os mesmos princípios e os mesmos objetivos, para atingirmos o homem em sua totalidade — corpo, mente e espírito — e em todo lugar para levar a Palavra.",
+  },
+  {
+    titulo: "Uma Igreja Evangélica Batista no Alto da Mooca",
+    texto: "A Igreja Evangélica Batista no Alto da Mooca foi organizada com 16 membros no dia 02/12/1950, pertencendo hoje aproximadamente 400 pessoas entre membros e profissionais. A IEBAM é uma sociedade sem fins lucrativos, registrada no Cartório de Registro Civil de Pessoas Jurídicas de São Paulo. É soberana, autônoma e independente, não estando subordinada a nenhuma outra Igreja ou entidade, reconhecendo exclusivamente a autoridade de Jesus Cristo expressas nas Sagradas Escrituras.",
+  },
+];

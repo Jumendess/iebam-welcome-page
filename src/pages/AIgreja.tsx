@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import igrejaBanner from "@/assets/igreja-banner.jpg";
-import { PASTORES, NAVY, GOLD, SERIF } from "@/config/igreja";
+import { PASTORES, TEXTOS_IGREJA, NAVY, GOLD, SERIF } from "@/config/igreja";
 
 const CrossDivider = () => (
   <div className="flex items-center justify-center gap-3 my-4">
@@ -42,81 +42,12 @@ const AIgreja = () => (
 
         <div className="mt-8 rounded-2xl p-8 md:p-10 shadow-sm space-y-10 text-sm leading-7 text-gray-600"
           style={{ border: `2px solid ${GOLD}` }}>
-
-          <div>
-            <SecTitle>Somos uma Igreja</SecTitle>
-            <p>
-              Igreja é um grupo de pessoas que se unem em torno da pessoa de Jesus Cristo. Isto é, somos uma ASSEMBLEIA de cristãos
-              que comungamos a mesma fé dos apóstolos de Jesus. Nós reconhecemos que Jesus Cristo é nosso Senhor e Salvador pessoal.
-              Procuramos seguir seus ensinamentos, permanecendo fiéis ao que temos na Bíblia Sagrada. Costumamos chamar uns aos outros
-              de irmãos, pois tivemos a experiência do nosso nascimento espiritual, tornando-nos assim filhos de Deus. Nós nos reunimos
-              para louvar a Deus, cultivando Seu santo nome e estudando Sua Palavra.
-            </p>
-          </div>
-
-          <div>
-            <SecTitle>Somos uma Igreja Evangélica</SecTitle>
-            <p>
-              Para nós a Bíblia é a única fundamento da nossa fé. Sabemos que a Bíblia é a revelação de Deus para os homens; podemos assim
-              conhecer Deus pelo que Ele mesmo revelou. Seus atos através da Bíblia é o que nos submetermos ao que nela está escrito.
-              O evangelho é a boas novas para nossa vida e para cada pessoa que o receber. Assim como os doze apóstolos de Jesus, saímos
-              do evangelismo à nossa missão; sabemos que podem transformar a si todos, por isso procuramos divulgar isso ao máximo.
-              O Novo Testamento fala das boas novas de Jesus.
-            </p>
-          </div>
-
-          <div>
-            <SecTitle>Somos uma Igreja Evangélica Batista</SecTitle>
-            <p>
-              Os batistas são conhecidos no mundo todo. São como um ramo das grandes igrejas que é o cristianismo. São bem conhecidos
-              no Brasil, são ainda mais nos EUA, na Inglaterra e na Alemanha, como também na Romênia, na Índia e na Rússia. Cremos que
-              Jesus Cristo é o único meio de salvação. Só pela Graça somos salvos por meio da fé. Uma de nossas grandes convicções é
-              que ninguém nasce cristão, mas que cada um é chamado a se tornar cristão por sua fé pessoal em Jesus. É pelo encontro com
-              Jesus Cristo que o homem pode ter um relacionamento direto com Deus. Nós os batistas discipulamos aqueles que professam
-              sua fé. Portanto nós batistas não aceitamos mediadores e árbitros. A palavra batistas significa imergir — assim sendo, os que
-              professam sua fé são batizados por imersão, seguindo o exemplo de Jesus.
-            </p>
-          </div>
-
-          <div>
-            <SecTitle>Somos defensores da liberdade individual</SecTitle>
-            <p>
-              Na Igreja Batista não há hierarquia: só Jesus Cristo é o Senhor. Ele é o verdadeiro chefe da Igreja. A mensagem dos batistas é
-              uma mensagem de LIBERDADE. A Igreja não pode assumir um poder temporal, pois sua vocação é proclamar o amor, a fé e a
-              eterna esperança do retorno de Cristo.
-            </p>
-          </div>
-
-          <div>
-            <SecTitle>Uma Igreja Autônoma Independente</SecTitle>
-            <p>
-              Nosso desejo como Igreja local é a consecução de objetivos mais amplos que os limites de nosso próprio bairro ou
-              comunidade. Portanto, nós unimos, pondo mãos de solidariedade e comunhão com igrejas que têm os mesmos princípios e os
-              mesmos objetivos, para atingirmos o homem em sua totalidade — corpo, mente e espírito — e em todo lugar para levar a Palavra.
-            </p>
-            <p className="mt-3">
-              A associação a outras comunidades não pode ser um empecilho no livre exercício de sua autonomia. Cada Igreja batista é livre
-              para escolher seus diáconos, eleger seus presbíteros, eleger seus diretores, empregar seu pastor e realizar sua obra, sem
-              submissão a nenhuma instituição religiosa, eclesiástica ou governamental. Ser batista é ser livre do domínio dos homens e
-              escravo de Cristo. "Pois minha eu, minha Cristo vive sem mim." — Gálatas 3:20
-            </p>
-          </div>
-
-          <div>
-            <SecTitle>Uma Igreja Evangélica Batista no Alto da Mooca</SecTitle>
-            <p>
-              A Igreja Evangélica Batista no Alto da Mooca foi organizada com 16 membros no dia 02/12/1950, pertencendo hoje
-              aproximadamente 400 pessoas entre membros e profissionais. Foi fundada no bairro do Pari em 1950. Depois passou para a
-              Rua do Oratório, 2978 e, posteriormente, para o atual endereço: Rua do Oratório, 2930 — Alto da Mooca. A IEBAM é uma
-              sociedade sem fins lucrativos, registrada no Cartório de Registro Civil de Pessoas Jurídicas de São Paulo.
-              É soberana, autônoma e independente, não estando subordinada a nenhuma outra Igreja ou entidade, reconhecendo
-              exclusivamente a autoridade de Jesus Cristo expressas nas Sagradas Escrituras.
-            </p>
-            <p className="mt-5 text-center text-xs text-gray-400 font-medium tracking-wide">
-              Pastor Sidney Machado — Presidente em exercício desde 14/01/2001
-            </p>
-          </div>
-
+          {TEXTOS_IGREJA.map((t, i) => (
+            <div key={i}>
+              <SecTitle>{t.titulo}</SecTitle>
+              <p>{t.texto}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
