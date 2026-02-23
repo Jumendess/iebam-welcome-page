@@ -6,7 +6,7 @@ import {
 } from "@/config/igreja";
 
 // ── Senha — altere no .env: VITE_ADMIN_PASSWORD=suasenha ─────────
-const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || "admin123";
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
 const STORAGE_KEY = "iebam_admin_data";
 
 // ── Tipos ─────────────────────────────────────────────────────────
