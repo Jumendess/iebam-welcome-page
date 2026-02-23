@@ -10,7 +10,7 @@ import AIgreja from "./pages/AIgreja";
 import Contato from "./pages/Contato";
 import Eventos from "./pages/Eventos";
 import Galeria from "./pages/Galeria";
-import NotFound from "./pages/NotFound";
+import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
@@ -34,9 +34,10 @@ const App = () => (
           <Route path="/contato" element={<Contato />} />
           <Route path="/eventos" element={<Eventos />} />
           <Route path="/galeria" element={<Galeria />} />
+          <Route path="/admin" element={<Admin />} />
 
           {/* 404 */}
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
