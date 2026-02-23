@@ -4,7 +4,7 @@
 
 export const IGREJA_NOME          = "IEBAM";
 export const IGREJA_NOME_COMPLETO = "Igreja Evangélica Batista no Alto da Mooca";
-export const IGREJA_SLOGAN        = "Online como porta de entrada. Presença e comunhão no presencial. 2026";
+export const IGREJA_SLOGAN        = "Online como porta de entrada. Presença e comunhão no presencial. 2026 teste";
 export const SITE_OFICIAL         = "https://www.iebam.org.br";
 
 export const ENDERECO_RUA    = "Rua do Oratório, 2930";
