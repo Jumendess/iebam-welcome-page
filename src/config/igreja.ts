@@ -15,26 +15,25 @@ export const ENDERECO_BAIRRO = "Alto da Mooca";
 export const ENDERECO_CIDADE = "São Paulo – CEP 03165-000";
 
 // ── Contato ─────────────────────────────────────────────────────
-export const WHATSAPP_NUMERO = "+55 11 99854-1972";
-export const WHATSAPP_URL    = "https://wa.me/5511998541972?text=Oi!%20Vim%20pelo%20site%20e%20queria%20mais%20informa%C3%A7%C3%B5es.";
-export const WHATSAPP_URL_VISITA = "https://wa.me/5511998541972?text=Oi!%20Sou%20novo(a)%20e%20queria%20visitar%20domingo.%20Como%20funciona%3F";
-export const EMAIL           = "contato@iebam.org.br";
+export const WHATSAPP_NUMERO     = import.meta.env.VITE_WHATSAPP_NUMERO     || "+55 11 99854-1972";
+export const WHATSAPP_URL        = `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMERO || "5511998541972"}?text=Oi!%20Vim%20pelo%20site%20e%20queria%20mais%20informa%C3%A7%C3%B5es.`;
+export const WHATSAPP_URL_VISITA = `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMERO || "5511998541972"}?text=Oi!%20Sou%20novo(a)%20e%20queria%20visitar%20domingo.%20Como%20funciona%3F`;
+export const EMAIL               = import.meta.env.VITE_EMAIL               || "contato@iebam.org.br";
 
 // ── Redes Sociais ────────────────────────────────────────────────
 export const INSTAGRAM_HANDLE = "@igrejabatistaaltodamooca";
-export const INSTAGRAM_URL    = "https://instagram.com/igrejabatistaaltodamooca";
+export const INSTAGRAM_URL    = import.meta.env.VITE_INSTAGRAM_URL || "https://instagram.com/igrejabatistaaltodamooca";
 
 export const FACEBOOK_HANDLE  = "/iebam/950";
-export const FACEBOOK_URL     = "https://facebook.com/iebam";
+export const FACEBOOK_URL     = import.meta.env.VITE_FACEBOOK_URL  || "https://facebook.com/iebam";
 
 export const YOUTUBE_HANDLE   = "IEBAM Vídeo";
-export const YOUTUBE_URL      = "https://www.youtube.com/@iebam";
+export const YOUTUBE_URL      = import.meta.env.VITE_YOUTUBE_URL   || "https://www.youtube.com/@iebam";
 
-// ✏️ Para buscar vídeos automáticos do canal:
-// 1. Acesse studio.youtube.com → Configurações → Canal → ID do Canal
-// 2. Acesse console.cloud.google.com → YouTube Data API v3 → Credenciais
-export const YOUTUBE_CHANNEL_ID = "UCxxxxxxxxxxxxxxxxxxxxxxx";
-export const YOUTUBE_API_KEY    = "SUA_API_KEY_AQUI";
+// ── YouTube API ──────────────────────────────────────────────────
+// ✏️ Configure no arquivo .env na raiz do projeto
+export const YOUTUBE_CHANNEL_ID = import.meta.env.VITE_YOUTUBE_CHANNEL_ID || "UCxxxxxxxxxxxxxxxxxxxxxxx";
+export const YOUTUBE_API_KEY    = import.meta.env.VITE_YOUTUBE_API_KEY    || "";
 
 // ── Horários de Culto ────────────────────────────────────────────
 export const CULTOS = [
@@ -138,8 +137,8 @@ export const VERSICULOS = [
 ];
 
 // ── Google Maps ──────────────────────────────────────────────────
-// ✏️ Para atualizar: google.com/maps → sua igreja → Compartilhar → Incorporar mapa → copie o src do iframe
-export const MAPS_EMBED = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.2!2d-46.5756!3d-23.5489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5b6a0b0b0b0b%3A0x0!2sRua%20do%20Orat%C3%B3rio%2C%202930%20-%20Mooca%2C%20S%C3%A3o%20Paulo!5e0!3m2!1spt-BR!2sbr!4v1234567890";
+// ✏️ Configure no .env: VITE_MAPS_EMBED=...
+export const MAPS_EMBED = import.meta.env.VITE_MAPS_EMBED || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.2!2d-46.5756!3d-23.5489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5b6a0b0b0b0b%3A0x0!2sRua%20do%20Orat%C3%B3rio%2C%202930%20-%20Mooca%2C%20S%C3%A3o%20Paulo!5e0!3m2!1spt-BR!2sbr!4v1234567890";
 
 // ── Pastores (timeline) ──────────────────────────────────────────
 export type Pastor = {
