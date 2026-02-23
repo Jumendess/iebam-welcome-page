@@ -9,12 +9,12 @@ import {
 } from "@/config/igreja";
 
 const NAV_LINKS = [
-  { to: "/home",     label: "Home"     },
+  { to: "/home",     label: "Página Inicial" },
   { to: "/a-igreja", label: "A Igreja" },
   { to: "/eventos",  label: "Eventos"  },
   { to: "/galeria",  label: "Galeria"  },
   { to: "/contato",  label: "Contato"  },
-  { to: "/porta",    label: "Porta"    },
+  { to: "/porta",    label: "Visitar"  },
 ];
 
 // ── Ícones sociais ───────────────────────────────────────────────
