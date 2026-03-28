@@ -1,9 +1,16 @@
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
 import Index from "./pages/Index";
 import Home from "./pages/Home";
 import AIgreja from "./pages/AIgreja";
@@ -21,6 +28,7 @@ const App = () => (
       <Sonner />
       <SpeedInsights />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           {/* Redireciona "/" para "/home" */}
           <Route path="/" element={<Navigate to="/home" replace />} />
