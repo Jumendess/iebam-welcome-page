@@ -29,7 +29,7 @@ export const YOUTUBE_API_KEY    = import.meta.env.VITE_YOUTUBE_API_KEY    || "";
 export const CULTOS = [
   {
     "titulo": "Escola Bíblica Dominical",
-    "horario": "DOMINGOS às 8h30",
+    "horario": "DOMINGOS às 9h30",
     "icon": "📖"
   },
   {
