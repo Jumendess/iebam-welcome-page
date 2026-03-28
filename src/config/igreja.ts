@@ -33,12 +33,12 @@ export const CULTOS = [
     "icon": "📖"
   },
   {
-    "titulo": "Culto de Adoração e Louvor",
+    "titulo": "Culto público",
     "horario": "DOMINGOS às 10h30 e às 18h",
     "icon": "🙏"
   },
   {
-    "titulo": "Culto de Oração e Estudo Bíblico",
+    "titulo": "Reunião de adoração",
     "horario": "QUARTAS às 19h30",
     "icon": "✝️"
   }
@@ -53,21 +53,21 @@ export const CULTOS_SEMANAIS = [
     "icon": "📖"
   },
   {
-    "titulo": "Culto de Adoração e Louvor – Manhã",
+    "titulo": "Culto público – Manhã",
     "descricao": "Culto principal com pregação da Palavra.",
     "dia": "Domingo",
     "horario": "10h30",
     "icon": "🙏"
   },
   {
-    "titulo": "Culto de Adoração e Louvor – Noite",
+    "titulo": "Culto público – Noite",
     "descricao": "Culto noturno de adoração e pregação.",
     "dia": "Domingo",
     "horario": "18h00",
     "icon": "🌙"
   },
   {
-    "titulo": "Culto de Oração e Estudo Bíblico",
+    "titulo": "Reunião de adoração",
     "descricao": "Momento de intercessão e aprofundamento na Palavra.",
     "dia": "Quarta-feira",
     "horario": "19h30",
@@ -309,13 +309,29 @@ export const PASTORES: Pastor[] = [
     "periodo": "Presidente em exercício desde 14/04/2024",
     "cargo": "Pastor Presidente",
     "atual": true,
+    "foto": "pastor-sidney.png",
     "telefone": "(11) 99854-1972",
     "email": "pastorsidney@iebam.org.br"
   }
 ];
 
 export type FotoGaleria = { src: string; titulo: string; categoria: "culto"|"eventos"|"jovens"|"missoes"|"edificio" };
-export const GALERIA: FotoGaleria[] = [];
+export const GALERIA: FotoGaleria[] = [
+  { src: "iebam-001.jpg", titulo: "Comunidade IEBAM", categoria: "culto" },
+  { src: "iebam-002.jpg", titulo: "Momento de Louvor", categoria: "culto" },
+  { src: "iebam-003.jpg", titulo: "Culto de Adoração", categoria: "culto" },
+  { src: "iebam-004.jpg", titulo: "Comunhão e Oração", categoria: "eventos" },
+  { src: "iebam-005.jpg", titulo: "Evento Especial", categoria: "eventos" },
+  { src: "iebam-006.jpg", titulo: "Confraternização", categoria: "eventos" },
+  { src: "iebam-007.jpg", titulo: "Ministério de Jovens", categoria: "jovens" },
+  { src: "iebam-008.jpg", titulo: "Retiro de Jovens", categoria: "jovens" },
+  { src: "iebam-009.jpg", titulo: "Atividade com Jovens", categoria: "jovens" },
+  { src: "iebam-010.jpg", titulo: "Trabalho Missionário", categoria: "missoes" },
+  { src: "iebam-011.jpg", titulo: "Ação Comunitária", categoria: "missoes" },
+  { src: "iebam-012.jpg", titulo: "Missão da Igreja", categoria: "missoes" },
+  { src: "iebam-013.jpg", titulo: "Edifício da IEBAM", categoria: "edificio" },
+  { src: "iebam-014.jpg", titulo: "Templo da Igreja", categoria: "edificio" }
+];
 
 export const NAVY  = "#1a2e5a";
 export const GOLD  = "#c9a84c";
@@ -323,27 +339,19 @@ export const SERIF = "Georgia, 'Times New Roman', serif";
 
 export const TEXTOS_IGREJA = [
   {
-    "titulo": "Somos uma Igreja",
-    "texto": "Igreja é um grupo de pessoas que se unem em torno da pessoa de Jesus Cristo. Isto é, somos uma ASSEMBLEIA de cristãos que comungamos a mesma fé dos apóstolos de Jesus. Nós reconhecemos que Jesus Cristo é nosso Senhor e Salvador pessoal. Procuramos seguir seus ensinamentos, permanecendo fiéis ao que temos na Bíblia Sagrada. Costumamos chamar uns aos outros de irmãos, pois tivemos a experiência do nosso nascimento espiritual, tornando-nos assim filhos de Deus. Nós nos reunimos para louvar a Deus, cultivando Seu santo nome e estudando Sua Palavra."
+    "titulo": "Quem Somos",
+    "texto": "A IEBAM é uma comunidade de fé reunida em torno de Jesus Cristo. Somos uma igreja que crê na Bíblia como Palavra de Deus, fundamento da fé, da vida e da nossa mensagem. Reconhecemos Jesus Cristo como Senhor e Salvador e buscamos segui-lo com fidelidade, vivendo em comunhão, adoração, serviço e amor ao próximo."
   },
   {
-    "titulo": "Somos uma Igreja Evangélica",
-    "texto": "Para nós a Bíblia é a única fundamento da nossa fé. Sabemos que a Bíblia é a revelação de Deus para os homens; podemos assim conhecer Deus pelo que Ele mesmo revelou. Seus atos através da Bíblia é o que nos submetermos ao que nela está escrito. O evangelho é a boas novas para nossa vida e para cada pessoa que o receber. Assim como os doze apóstolos de Jesus, saímos do evangelismo à nossa missão; sabemos que podem transformar a si todos, por isso procuramos divulgar isso ao máximo. O Novo Testamento fala das boas novas de Jesus."
+    "titulo": "Nossa Fé e Prática",
+    "texto": "Como igreja evangélica batista, cremos que a salvação é pela graça, mediante a fé, e que a vida cristã começa com uma resposta pessoal ao chamado de Deus. Por isso, batizamos, por imersão, aqueles que professam publicamente sua fé em Jesus Cristo."
   },
   {
-    "titulo": "Somos uma Igreja Evangélica Batista",
-    "texto": "Os batistas são conhecidos no mundo todo. São como um ramo das grandes igrejas que é o cristianismo. São bem conhecidos no Brasil, são ainda mais nos EUA, na Inglaterra e na Alemanha, como também na Romênia, na Índia e na Rússia. Cremos que Jesus Cristo é o único meio de salvação. Só pela Graça somos salvos por meio da fé. Uma de nossas grandes convicções é que ninguém nasce cristão, mas que cada um é chamado a se tornar cristão por sua fé pessoal em Jesus. É pelo encontro com Jesus Cristo que o homem pode ter um relacionamento direto com Deus."
+    "titulo": "Nossa Missão",
+    "texto": "A IEBAM é uma igreja autônoma e independente, guiada pela autoridade de Cristo e das Escrituras, e cooperamos com outras igrejas e organizações que compartilham da mesma fé e dos mesmos princípios. Existimos para glorificar a Deus, anunciar o evangelho e participar da formação de vidas para a glória de Cristo."
   },
   {
-    "titulo": "Somos defensores da liberdade individual",
-    "texto": "Na Igreja Batista não há hierarquia: só Jesus Cristo é o Senhor. Ele é o verdadeiro chefe da Igreja. A mensagem dos batistas é uma mensagem de LIBERDADE. A Igreja não pode assumir um poder temporal, pois sua vocação é proclamar o amor, a fé e a eterna esperança do retorno de Cristo."
-  },
-  {
-    "titulo": "Uma Igreja Autônoma Independente",
-    "texto": "Nosso desejo como Igreja local é a consecução de objetivos mais amplos que os limites de nosso próprio bairro ou comunidade. Portanto, nós unimos, pondo mãos de solidariedade e comunhão com igrejas que têm os mesmos princípios e os mesmos objetivos, para atingirmos o homem em sua totalidade — corpo, mente e espírito — e em todo lugar para levar a Palavra."
-  },
-  {
-    "titulo": "Uma Igreja Evangélica Batista no Alto da Mooca",
-    "texto": "A Igreja Evangélica Batista no Alto da Mooca foi organizada com 16 membros no dia 02/12/1950, pertencendo hoje aproximadamente 400 pessoas entre membros e profissionais. A IEBAM é uma sociedade sem fins lucrativos, registrada no Cartório de Registro Civil de Pessoas Jurídicas de São Paulo. É soberana, autônoma e independente, não estando subordinada a nenhuma outra Igreja ou entidade, reconhecendo exclusivamente a autoridade de Jesus Cristo expressas nas Sagradas Escrituras."
+    "titulo": "Nossa História",
+    "texto": "Organizada em 2 de dezembro de 1950, a Igreja Evangélica Batista no Alto da Mooca é uma associação religiosa sem fins lucrativos, soberana, autônoma e independente, não subordinada a qualquer outra igreja ou entidade, reconhecendo exclusivamente a autoridade de Jesus Cristo, conforme revelada nas Sagradas Escrituras. Atualmente sob a presidência do Pastor Sidney Machado, em exercício desde 14/04/2024."
   }
 ];

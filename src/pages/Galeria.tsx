@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { GALERIA, NAVY, GOLD, SERIF } from "@/config/igreja";
+import { GALERIA, INSTAGRAM_URL, NAVY, GOLD, SERIF } from "@/config/igreja";
 
 // Import all gallery assets statically so Vite bundles them
 const galeriaAssets = import.meta.glob("../assets/galeria/*", { eager: true, query: "?url", import: "default" });
@@ -9,15 +9,6 @@ function getGaleriaUrl(src: string): string {
   const key = `../assets/galeria/${src}`;
   return (galeriaAssets[key] as string) ?? "";
 }
-
-const CATEGORIAS = [
-  { value: "todos",    label: "Todos"    },
-  { value: "culto",    label: "Cultos"   },
-  { value: "eventos",  label: "Eventos"  },
-  { value: "jovens",   label: "Jovens"   },
-  { value: "missoes",  label: "Missões"  },
-  { value: "edificio", label: "Edifício" },
-];
 
 const CrossDivider = () => (
   <div className="flex items-center justify-center gap-3 my-4">
@@ -30,13 +21,14 @@ const CrossDivider = () => (
   </div>
 );
 
-const Galeria = () => {
-  const [categoria, setCategoria] = useState("todos");
-  const [lightbox, setLightbox] = useState<number | null>(null);
+const InstagramIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+  </svg>
+);
 
-  const filtradas = GALERIA.filter(
-    f => categoria === "todos" || f.categoria === categoria
-  );
+const Galeria = () => {
+  const [lightbox, setLightbox] = useState<number | null>(null);
 
   return (
     <Layout>
@@ -50,99 +42,62 @@ const Galeria = () => {
         <CrossDivider />
       </section>
 
-      {/* ── FILTROS ── */}
-      <div className="bg-white border-b border-gray-100 px-6 py-4">
-        <div className="max-w-5xl mx-auto flex flex-wrap gap-2 justify-center">
-          {CATEGORIAS.map(c => (
-            <button
-              key={c.value}
-              onClick={() => setCategoria(c.value)}
-              className="px-4 py-2 rounded-full text-sm font-medium transition-all"
-              style={{
-                background: categoria === c.value ? GOLD : "#f3f4f6",
-                color: categoria === c.value ? "white" : NAVY,
-              }}
-            >
-              {c.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* ── GRID ── */}
       <section className="py-12 px-6 bg-white min-h-[40vh]">
         <div className="max-w-5xl mx-auto">
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-3 [column-gap:0.75rem]">
 
-          {filtradas.length === 0 ? (
-            /* Estado vazio */
-            <div className="text-center py-20 space-y-5">
-              <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto"
-                style={{ background: `${GOLD}15` }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}
-                  className="w-9 h-9" style={{ color: GOLD }}>
-                  <path strokeLinecap="round" strokeLinejoin="round"
-                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 20.25h18M3.75 4.5h16.5M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold" style={{ color: NAVY }}>
-                Nenhuma foto ainda
-              </h3>
-              <div className="max-w-sm mx-auto text-sm text-gray-400 leading-relaxed bg-gray-50 rounded-2xl p-6 text-left">
-                <p className="font-semibold text-gray-600 mb-3">Como adicionar fotos:</p>
-                <ol className="space-y-2 list-decimal list-inside">
-                  <li>
-                    Coloque as imagens em{" "}
-                    <code className="bg-white px-1.5 py-0.5 rounded text-xs border border-gray-200">
-                      src/assets/galeria/
-                    </code>
-                  </li>
-                  <li>
-                    Abra{" "}
-                    <code className="bg-white px-1.5 py-0.5 rounded text-xs border border-gray-200">
-                      src/config/igreja.ts
-                    </code>
-                  </li>
-                  <li>Adicione entradas no array <strong>GALERIA</strong></li>
-                </ol>
-                <pre className="mt-4 bg-white rounded-lg p-3 text-xs border border-gray-200 overflow-x-auto">
-{`{
-  src: "culto-domingo.jpg",
-  titulo: "Culto Dominical",
-  categoria: "culto"
-}`}
-                </pre>
-              </div>
-            </div>
-          ) : (
-            /* Grid masonry */
-            <div className="columns-2 md:columns-3 lg:columns-4 gap-3 [column-gap:0.75rem]">
-              {filtradas.map((foto, i) => (
-                <div
-                  key={i}
-                  className="break-inside-avoid mb-3 cursor-pointer overflow-hidden rounded-xl relative group"
-                  onClick={() => setLightbox(i)}
-                >
-                  <img
-                    src={getGaleriaUrl(foto.src)}
-                    alt={foto.titulo}
-                    className="w-full object-cover block"
-                  />
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-200 flex items-end">
-                    <p className="w-full px-3 py-2 text-white text-xs font-medium
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      {foto.titulo}
-                    </p>
-                  </div>
+            {GALERIA.map((foto, i) => (
+              <div
+                key={i}
+                className="break-inside-avoid mb-3 cursor-pointer overflow-hidden rounded-xl relative group"
+                onClick={() => setLightbox(i)}
+              >
+                <img
+                  src={getGaleriaUrl(foto.src)}
+                  alt={foto.titulo}
+                  className="w-full object-cover block"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-200 flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2}
+                    className="w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow">
+                    <path strokeLinecap="round" strokeLinejoin="round"
+                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+                  </svg>
                 </div>
-              ))}
+              </div>
+            ))}
+
+            {/* ── BOTÃO VER MAIS (último item do grid) ── */}
+            <div className="break-inside-avoid mb-3">
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center justify-center gap-3 w-full h-40 rounded-xl transition-all duration-200 group"
+                style={{ background: `${GOLD}15`, border: `2px dashed ${GOLD}60` }}
+              >
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110"
+                  style={{ background: GOLD, color: "white" }}
+                >
+                  <InstagramIcon />
+                </div>
+                <span className="text-sm font-semibold" style={{ color: NAVY }}>
+                  Ver mais fotos
+                </span>
+                <span className="text-xs" style={{ color: `${GOLD}cc` }}>
+                  no Instagram
+                </span>
+              </a>
             </div>
-          )}
+
+          </div>
         </div>
       </section>
 
       {/* ── LIGHTBOX ── */}
-      {lightbox !== null && filtradas[lightbox] && (
+      {lightbox !== null && GALERIA[lightbox] && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           style={{ background: "rgba(0,0,0,0.92)" }}
@@ -171,7 +126,7 @@ const Galeria = () => {
           )}
 
           {/* Próximo */}
-          {lightbox < filtradas.length - 1 && (
+          {lightbox < GALERIA.length - 1 && (
             <button
               className="absolute right-3 w-10 h-10 flex items-center justify-center rounded-full text-white/60 hover:text-white hover:bg-white/10 transition-colors"
               onClick={e => { e.stopPropagation(); setLightbox(lightbox + 1); }}
@@ -187,12 +142,11 @@ const Galeria = () => {
             onClick={e => e.stopPropagation()}
           >
             <img
-              src={getGaleriaUrl(filtradas[lightbox].src)}
-              alt={filtradas[lightbox].titulo}
+              src={getGaleriaUrl(GALERIA[lightbox].src)}
+              alt={GALERIA[lightbox].titulo}
               className="max-h-[80vh] max-w-full object-contain rounded-lg"
             />
-            <p className="text-white/60 text-sm">{filtradas[lightbox].titulo}</p>
-            <p className="text-white/30 text-xs">{lightbox + 1} / {filtradas.length}</p>
+            <p className="text-white/30 text-xs">{lightbox + 1} / {GALERIA.length}</p>
           </div>
         </div>
       )}

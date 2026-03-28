@@ -151,6 +151,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           {/* Marca */}
           <div className="space-y-4">
             <img src={logoFooter} alt="IEBAM" className="h-14" />
+            <p className="font-semibold text-sm" style={{ color: "#c9a84c" }}>Redes Sociais</p>
             <div className="flex gap-4">
               {SOCIAL_NAV.map(({ href, Icon }) => (
                 <a key={href} href={href} target="_blank" rel="noopener noreferrer"
@@ -159,11 +160,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </a>
               ))}
             </div>
-            <p className="text-xs text-white/40 leading-relaxed">
-              É soberana, autônoma e independente, não estando subordinada a nenhuma outra
-              igreja ou entidade, reconhecendo exclusivamente a autoridade de Jesus Cristo
-              expressa nas Sagradas Escrituras.
-            </p>
           </div>
 
           {/* Eventos e Cultos */}
