@@ -42,10 +42,62 @@ const Galeria = () => {
         <CrossDivider />
       </section>
 
-      {/* ── GRID ── */}
-      <section className="py-12 px-6 bg-white min-h-[40vh]">
+      {/* ── MOBILE/TABLET: carrossel horizontal ── */}
+      <section className="lg:hidden py-10 bg-white">
+        <div
+          className="flex gap-3 overflow-x-auto px-6 pb-4 snap-x snap-mandatory"
+          style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" } as React.CSSProperties}
+        >
+          {GALERIA.map((foto, i) => (
+            <div
+              key={i}
+              className="shrink-0 w-64 h-64 rounded-xl overflow-hidden relative cursor-pointer snap-start group"
+              onClick={() => setLightbox(i)}
+            >
+              <img
+                src={getGaleriaUrl(foto.src)}
+                alt={foto.titulo}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/0 group-active:bg-black/30 transition-all duration-200 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2}
+                  className="w-8 h-8 opacity-0 group-active:opacity-100 drop-shadow">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+                </svg>
+              </div>
+            </div>
+          ))}
+
+          {/* Ver mais — carrossel */}
+          <div className="shrink-0 w-48 h-64 snap-start">
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center justify-center gap-3 w-full h-full rounded-xl transition-all duration-200 group"
+              style={{ background: `${GOLD}15`, border: `2px dashed ${GOLD}60` }}
+            >
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center group-active:scale-110 transition-transform"
+                style={{ background: GOLD, color: "white" }}
+              >
+                <InstagramIcon />
+              </div>
+              <span className="text-sm font-semibold" style={{ color: NAVY }}>Ver mais fotos</span>
+              <span className="text-xs" style={{ color: `${GOLD}cc` }}>no Instagram</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Indicador de scroll */}
+        <p className="text-center text-xs text-gray-300 mt-1">← deslize para ver mais →</p>
+      </section>
+
+      {/* ── DESKTOP: grid masonry ── */}
+      <section className="hidden lg:block py-12 px-6 bg-white min-h-[40vh]">
         <div className="max-w-5xl mx-auto">
-          <div className="columns-2 md:columns-3 lg:columns-4 gap-3 [column-gap:0.75rem]">
+          <div className="columns-4 gap-3 [column-gap:0.75rem]">
 
             {GALERIA.map((foto, i) => (
               <div
@@ -68,7 +120,7 @@ const Galeria = () => {
               </div>
             ))}
 
-            {/* ── BOTÃO VER MAIS (último item do grid) ── */}
+            {/* Ver mais — grid */}
             <div className="break-inside-avoid mb-3">
               <a
                 href={INSTAGRAM_URL}
@@ -83,12 +135,8 @@ const Galeria = () => {
                 >
                   <InstagramIcon />
                 </div>
-                <span className="text-sm font-semibold" style={{ color: NAVY }}>
-                  Ver mais fotos
-                </span>
-                <span className="text-xs" style={{ color: `${GOLD}cc` }}>
-                  no Instagram
-                </span>
+                <span className="text-sm font-semibold" style={{ color: NAVY }}>Ver mais fotos</span>
+                <span className="text-xs" style={{ color: `${GOLD}cc` }}>no Instagram</span>
               </a>
             </div>
 
