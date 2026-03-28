@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Layout from "@/components/Layout";
 import { GALERIA, INSTAGRAM_URL, NAVY, GOLD, SERIF } from "@/config/igreja";
 
@@ -29,6 +29,20 @@ const InstagramIcon = () => (
 
 const Galeria = () => {
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const touchStartX = useRef<number | null>(null);
+
+  function onTouchStart(e: React.TouchEvent) {
+    touchStartX.current = e.touches[0].clientX;
+  }
+
+  function onTouchEnd(e: React.TouchEvent) {
+    if (touchStartX.current === null || lightbox === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    touchStartX.current = null;
+    if (Math.abs(diff) < 50) return;
+    if (diff > 0 && lightbox < GALERIA.length - 1) setLightbox(l => l! + 1);
+    if (diff < 0 && lightbox > 0) setLightbox(l => l! - 1);
+  }
 
   return (
     <Layout>
@@ -150,6 +164,8 @@ const Galeria = () => {
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           style={{ background: "rgba(0,0,0,0.92)" }}
           onClick={() => setLightbox(null)}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
         >
           {/* Fechar */}
           <button
