@@ -97,7 +97,7 @@ export type FotoGaleria = { src: string; titulo: string; categoria: "culto"|"eve
 export const GALERIA: FotoGaleria[] = [];
 
 export const NAVY  = "#1a2e5a";
-export const GOLD  = "#c9a84c";
+export const GOLD  = "#a97d50";
 export const SERIF = "Georgia, 'Times New Roman', serif";
 
 export const TEXTOS_IGREJA = ${JSON.stringify(d.textosIgreja, null, 2)};
@@ -106,10 +106,10 @@ export const TEXTOS_IGREJA = ${JSON.stringify(d.textosIgreja, null, 2)};
 
 // ── UI Base ───────────────────────────────────────────────────────
 const Input = (p: React.InputHTMLAttributes<HTMLInputElement>) => (
-  <input {...p} className={`w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-yellow-400 bg-white transition-colors ${p.className??""}`}/>
+  <input {...p} className={`w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#a97d50] bg-white transition-colors ${p.className??""}`}/>
 );
 const Textarea = (p: React.TextareaHTMLAttributes<HTMLTextAreaElement>) => (
-  <textarea {...p} className={`w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-yellow-400 bg-white resize-none transition-colors ${p.className??""}`}/>
+  <textarea {...p} className={`w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#a97d50] bg-white resize-none transition-colors ${p.className??""}`}/>
 );
 const Label = ({children}:{children:React.ReactNode}) => (
   <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1 block">{children}</label>
@@ -133,7 +133,7 @@ const ItemBox = ({children, onDelete}:{children:React.ReactNode;onDelete?:()=>vo
   </div>
 );
 const AddBtn = ({onClick,label}:{onClick:()=>void;label:string}) => (
-  <button onClick={onClick} className="w-full py-3 rounded-xl border-2 border-dashed border-gray-200 text-gray-400 text-sm hover:border-yellow-400 hover:text-yellow-600 transition-colors mt-2">
+  <button onClick={onClick} className="w-full py-3 rounded-xl border-2 border-dashed border-gray-200 text-gray-400 text-sm hover:border-[#a97d50] hover:text-[#a97d50] transition-colors mt-2">
     + {label}
   </button>
 );
@@ -323,7 +323,7 @@ const Panel = ({onLogout}:{onLogout:()=>void}) => {
                     <div>
                       <Label>Mês</Label>
                       <select value={e.mes} onChange={ev=>updArr<Evento>("agenda",i,"mes",Number(ev.target.value))}
-                        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white outline-none focus:border-yellow-400">
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white outline-none focus:border-[#a97d50]">
                         {MESES.map((m,idx)=><option key={idx+1} value={idx+1}>{m}</option>)}
                       </select>
                     </div>
@@ -335,7 +335,7 @@ const Panel = ({onLogout}:{onLogout:()=>void}) => {
                     <div>
                       <Label>Tipo</Label>
                       <select value={e.tipo} onChange={ev=>updArr<Evento>("agenda",i,"tipo",ev.target.value)}
-                        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white outline-none focus:border-yellow-400">
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white outline-none focus:border-[#a97d50]">
                         {TIPOS.map(t=><option key={t} value={t}>{t}</option>)}
                       </select>
                     </div>

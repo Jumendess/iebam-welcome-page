@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logoNavbar from "@/assets/logo-IEBAM-horizontal.png";
-import logoFooter from "@/assets/logo-IEBAM-horizontal.png";
+import logoFooter from "@/assets/logo-IEBAM-horizontal-negativo.svg";
 import {
   FACEBOOK_URL, YOUTUBE_URL, INSTAGRAM_URL,
   ENDERECO_RUA, ENDERECO_BAIRRO, ENDERECO_CIDADE,
@@ -66,8 +66,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                   key={to}
                   to={to}
                   className="text-sm font-medium transition-colors"
-                  style={{ color: active ? "#c9a84c" : "#1a2e5a" }}
-                  onMouseEnter={e => { if (!active) (e.target as HTMLElement).style.color = "#c9a84c"; }}
+                  style={{ color: active ? "#a97d50" : "#1a2e5a" }}
+                  onMouseEnter={e => { if (!active) (e.target as HTMLElement).style.color = "#a97d50"; }}
                   onMouseLeave={e => { if (!active) (e.target as HTMLElement).style.color = "#1a2e5a"; }}
                 >
                   {label}
@@ -125,7 +125,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             return (
               <Link key={to} to={to} onClick={() => setOpen(false)}
                 className="px-4 py-3 rounded-lg text-base font-medium transition-colors"
-                style={{ color: active ? "#c9a84c" : "#1a2e5a", background: active ? "#fdf8ee" : "transparent" }}>
+                style={{ color: active ? "#a97d50" : "#1a2e5a", background: active ? "#fdf8ee" : "transparent" }}>
                 {label}
               </Link>
             );
@@ -151,11 +151,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           {/* Marca */}
           <div className="space-y-4">
             <img src={logoFooter} alt="IEBAM" className="h-14" />
-            <p className="font-semibold text-sm" style={{ color: "#c9a84c" }}>Redes Sociais</p>
+            <p className="font-semibold text-sm" style={{ color: "#a97d50" }}>Redes Sociais</p>
             <div className="flex gap-4">
               {SOCIAL_NAV.map(({ href, Icon }) => (
                 <a key={href} href={href} target="_blank" rel="noopener noreferrer"
-                  className="hover:text-yellow-400 transition-colors">
+                  className="hover:text-[#a97d50] transition-colors">
                   <Icon size={20} />
                 </a>
               ))}
@@ -164,11 +164,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
           {/* Eventos e Cultos */}
           <div className="space-y-3">
-            <p className="font-semibold text-sm" style={{ color: "#c9a84c" }}>Eventos e Cultos</p>
+            <p className="font-semibold text-sm" style={{ color: "#a97d50" }}>Eventos e Cultos</p>
             <p className="text-xs text-white/40 leading-relaxed">
               Os cultos também são transmitidos on-line.{" "}
               <a href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer"
-                className="underline hover:text-yellow-400 transition-colors">
+                className="underline hover:text-[#a97d50] transition-colors">
                 Verifique nossos horários de transmissão de cultos e eventos.
               </a>
             </p>
@@ -176,11 +176,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
           {/* Links */}
           <div className="space-y-3">
-            <p className="font-semibold text-sm" style={{ color: "#c9a84c" }}>Links</p>
+            <p className="font-semibold text-sm" style={{ color: "#a97d50" }}>Links</p>
             <ul className="space-y-2 text-xs">
               {NAV_LINKS.map(({ to, label }) => (
                 <li key={to}>
-                  <Link to={to} className="hover:text-yellow-400 transition-colors">{label}</Link>
+                  <Link to={to} className="hover:text-[#a97d50] transition-colors">{label}</Link>
                 </li>
               ))}
             </ul>
@@ -188,7 +188,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
           {/* Endereço */}
           <div className="text-xs text-white/40 space-y-1 leading-relaxed">
-            <p className="font-semibold text-sm mb-2" style={{ color: "#c9a84c" }}>Endereço</p>
+            <p className="font-semibold text-sm mb-2" style={{ color: "#a97d50" }}>Endereço</p>
             <p>{ENDERECO_RUA}</p>
             <p>{ENDERECO_BAIRRO}</p>
             <p>{ENDERECO_CIDADE}</p>

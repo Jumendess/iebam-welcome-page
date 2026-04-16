@@ -79,7 +79,7 @@ const Contato = () => {
                   required
                   value={form.nome}
                   onChange={e => setForm({ ...form, nome: e.target.value })}
-                  className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-yellow-400 transition-colors"
+                  className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#a97d50] transition-colors"
                   placeholder="Seu nome completo"
                 />
               </div>
@@ -93,7 +93,7 @@ const Contato = () => {
                   required
                   value={form.email}
                   onChange={e => setForm({ ...form, email: e.target.value })}
-                  className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-yellow-400 transition-colors"
+                  className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#a97d50] transition-colors"
                   placeholder="seu@email.com"
                 />
               </div>
@@ -107,7 +107,7 @@ const Contato = () => {
                   type="tel"
                   value={form.whatsapp}
                   onChange={e => setForm({ ...form, whatsapp: e.target.value })}
-                  className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-yellow-400 transition-colors"
+                  className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#a97d50] transition-colors"
                   placeholder="(11) 99999-9999"
                 />
               </div>
@@ -121,7 +121,7 @@ const Contato = () => {
                   rows={5}
                   value={form.mensagem}
                   onChange={e => setForm({ ...form, mensagem: e.target.value })}
-                  className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-yellow-400 transition-colors resize-none"
+                  className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#a97d50] transition-colors resize-none"
                   placeholder="Escreva sua mensagem..."
                 />
               </div>
@@ -219,8 +219,8 @@ const Contato = () => {
                   </p>
                   {/* ✏️ EDITE: horários */}
                   <div className="text-sm text-gray-500 space-y-1">
-                    <p><span className="font-medium text-gray-700">Domingo</span> — 8h30 · 10h30 · 18h</p>
-                    <p><span className="font-medium text-gray-700">Quarta</span> — 19h30</p>
+                    <p><span className="font-medium text-gray-700">Domingo</span> — 10h30 e 18h</p>
+                    <p><span className="font-medium text-gray-700">Quarta</span> — 19h30 <span className="text-xs text-gray-400">(online pelo YouTube da IEBAM)</span></p>
                   </div>
                 </div>
               </div>

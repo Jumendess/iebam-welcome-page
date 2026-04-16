@@ -9,7 +9,7 @@ export const SITE_OFICIAL         = "https://www.iebam.org.br";
 
 export const ENDERECO_RUA    = "Rua do Oratório, 2930";
 export const ENDERECO_BAIRRO = "Alto da Mooca";
-export const ENDERECO_CIDADE = "São Paulo – CEP 03165-000";
+export const ENDERECO_CIDADE = "São Paulo – CEP 03195-000";
 
 export const WHATSAPP_NUMERO     = import.meta.env.VITE_WHATSAPP_NUMERO || "+55 11 99854-1972";
 export const WHATSAPP_URL        = `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMERO || "5511998541972"}?text=Oi!%20Vim%20pelo%20site%20e%20queria%20mais%20informa%C3%A7%C3%B5es.`;
@@ -334,7 +334,7 @@ export const GALERIA: FotoGaleria[] = [
 ];
 
 export const NAVY  = "#1a2e5a";
-export const GOLD  = "#c9a84c";
+export const GOLD  = "#a97d50";
 export const SERIF = "Georgia, 'Times New Roman', serif";
 
 export const TEXTOS_IGREJA = [

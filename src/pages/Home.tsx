@@ -32,12 +32,12 @@ const InstagramIcon = ({ className }: { className?: string }) => (
 
 const CrossDivider = () => (
   <div className="flex items-center justify-center gap-3 my-1">
-    <span className="block h-px w-16" style={{ background: "#c9a84c80" }} />
+    <span className="block h-px w-16" style={{ background: "#a97d5080" }} />
     <svg width="12" height="18" viewBox="0 0 12 18" fill="none">
-      <rect x="4.5" y="0" width="3" height="18" fill="#c9a84c" />
-      <rect x="0" y="4" width="12" height="3" fill="#c9a84c" />
+      <rect x="4.5" y="0" width="3" height="18" fill="#a97d50" />
+      <rect x="0" y="4" width="12" height="3" fill="#a97d50" />
     </svg>
-    <span className="block h-px w-16" style={{ background: "#c9a84c80" }} />
+    <span className="block h-px w-16" style={{ background: "#a97d5080" }} />
   </div>
 );
 
@@ -219,7 +219,7 @@ const Home = () => {
           >
             Bem-vindo(a) à{" "}
             <br />
-            <span style={{ color: "#c9a84c" }}>IEBAM</span>
+            <span style={{ color: "#a97d50" }}>IEBAM</span>
           </h1>
           <p
             className="text-xl text-white/90 mb-8"
@@ -230,7 +230,7 @@ const Home = () => {
           <Link
             to="/a-igreja"
             className="inline-block font-bold px-8 py-3 rounded text-base transition-all duration-200 shadow-lg hover:brightness-110"
-            style={{ background: "#c9a84c", color: "#1a2e5a", letterSpacing: "0.04em" }}
+            style={{ background: "#a97d50", color: "#1a2e5a", letterSpacing: "0.04em" }}
           >
             Conheça a Igreja
           </Link>
@@ -275,7 +275,7 @@ const Home = () => {
           <div className="text-center mb-10">
             <h2
               className="text-4xl font-bold mb-2"
-              style={{ color: "#c9a84c", fontFamily: "Georgia, serif" }}
+              style={{ color: "#a97d50", fontFamily: "Georgia, serif" }}
             >
               Cultos Online
             </h2>
@@ -287,7 +287,7 @@ const Home = () => {
 
           {loading && (
             <div className="flex justify-center items-center h-48 gap-3 text-gray-400">
-              <svg className="animate-spin w-6 h-6" style={{ color: "#c9a84c" }} fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin w-6 h-6" style={{ color: "#a97d50" }} fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
@@ -313,7 +313,7 @@ const Home = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border border-gray-200 text-gray-600 px-6 py-3 rounded-full hover:border-yellow-600 transition-all text-sm font-medium"
-              style={{ "--hover-color": "#c9a84c" } as any}
+              style={{ "--hover-color": "#a97d50" } as any}
             >
               <YoutubeIcon className="w-5 h-5 text-red-600" />
               Ver todos os vídeos no canal
