@@ -38,7 +38,7 @@ export const CULTOS = [
     "icon": "🙏"
   },
   {
-    "titulo": "Reunião de adoração",
+    "titulo": "Reunião de oração",
     "horario": "QUARTAS às 19h30",
     "icon": "✝️"
   }
@@ -67,7 +67,7 @@ export const CULTOS_SEMANAIS = [
     "icon": "🌙"
   },
   {
-    "titulo": "Reunião de adoração",
+    "titulo": "Reunião de oração",
     "descricao": "Momento de intercessão e aprofundamento na Palavra.",
     "dia": "Quarta-feira",
     "horario": "19h30",
